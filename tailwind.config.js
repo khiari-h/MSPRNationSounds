@@ -24,6 +24,7 @@ module.exports = {
         'white': '#ffffff',
         'black': '#000000',
         'custom-yellow-500': '#FCD34D',
+        'custom-gray': '#f0f0f0',
       },
     },
   },
