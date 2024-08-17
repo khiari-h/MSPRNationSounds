@@ -9,6 +9,7 @@ import Button from '../atoms/Button';
 const Footer = () => {
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '' });
   const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +18,7 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Désactive le bouton pendant la soumission
     try {
         await axios.post('/api/newsletter', {
             first_name: formData.firstName,
@@ -27,6 +29,8 @@ const Footer = () => {
         setFormData({ firstName: '', lastName: '', email: '' });
     } catch (error) {
         setStatus('Erreur lors de l\'inscription.');
+    } finally {
+        setIsSubmitting(false); // Réactive le bouton après la soumission
     }
   };
 
@@ -88,9 +92,11 @@ const Footer = () => {
                 required
               />
 
-<Button type="sumbit"
-          label="S'inscrire"
-        />
+              <Button
+                label={isSubmitting ? "En cours..." : "S'inscrire"}
+                type="submit"
+                disabled={isSubmitting}
+              />
             </form>
             {status && (
               <p className={`mt-2 text-center ${status === 'Inscription réussie!' ? 'text-light-blue' : 'text-error-red'}`}>

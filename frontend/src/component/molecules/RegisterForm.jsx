@@ -36,7 +36,7 @@ const RegistrationForm = () => {
           } else {
             setEvents([]);
           }
-          setFormData((prev) => ({ ...prev, eventId: '' })); // Réinitialiser eventId
+          setFormData((prev) => ({ ...prev, eventId: '' })); 
         } catch (error) {
           console.error('Erreur lors du chargement des événements :', error);
           setErrorMessage('Erreur lors du chargement des événements.');
@@ -53,22 +53,23 @@ const RegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axiosConfig.post('/register', {
+      const response = await axiosConfig.post('/api/register', {
         first_name: formData.firstName,
         last_name: formData.lastName,
         email: formData.email,
-        event_id: formData.eventId, // Envoyer eventId au lieu de eventName
+        event_id: formData.eventId, 
       });
       setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
       setErrorMessage('');
     } catch (error) {
-      console.error('Erreur lors de l\'inscription :', error);
+      console.error('Erreur lors de l\'inscription :', error.response); // Affiche plus de détails sur l'erreur
       setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
       setSuccessMessage('');
     } finally {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <form
@@ -119,7 +120,7 @@ const RegistrationForm = () => {
         <option value="artists">Artistes</option>
       </select>
       <select
-        id="eventId" // Changer eventName par eventId
+        id="eventId"
         name="eventId"
         value={formData.eventId}
         onChange={handleChange}
@@ -135,10 +136,11 @@ const RegistrationForm = () => {
         ))}
       </select>
       <Button
-          label="S'inscrire"
-          type="submit"
-          disabled={isSubmitting}
-      />
+  label="S'inscrire"
+  type="submit"
+  disabled={isSubmitting}
+/>
+
 
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
