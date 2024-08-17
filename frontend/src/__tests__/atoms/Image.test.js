@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { act } from 'react';
 import Image from '../../component/atoms/Image';
 
 describe('Composant Image', () => {
@@ -10,8 +11,10 @@ describe('Composant Image', () => {
     const testSrc = 'https://example.com/image.jpg';
     const testAlt = 'Exemple d\'image';
 
-    // Rendu du composant Image avec les props src et alt
-    render(<Image src={testSrc} alt={testAlt} />);
+    // Utilisation de `act` pour gérer le rendu
+    act(() => {
+      render(<Image src={testSrc} alt={testAlt} />);
+    });
     
     // Vérifie que l'élément img avec le src et alt corrects est bien dans le document
     const imgElement = screen.getByAltText(testAlt);
@@ -24,8 +27,10 @@ describe('Composant Image', () => {
     // Données de test pour la classe CSS
     const customClass = 'custom-class';
 
-    // Rendu du composant Image avec une classe CSS personnalisée
-    render(<Image src="https://example.com/image.jpg" alt="Exemple d'image" className={customClass} />);
+    // Utilisation de `act` pour gérer le rendu
+    act(() => {
+      render(<Image src="https://example.com/image.jpg" alt="Exemple d'image" className={customClass} />);
+    });
     
     // Vérifie que l'élément img contient la classe CSS personnalisée en plus de 'object-contain'
     const imgElement = screen.getByAltText('Exemple d\'image');
