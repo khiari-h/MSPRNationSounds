@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Accordion from '../../../components/molecules/Accordion';
+import Accordion from '../../component/molecules/Accordion';
 
 describe('Composant Accordion', () => {
   
