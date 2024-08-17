@@ -15,7 +15,6 @@ Route::resources([
 
 ]);
 
-
 // Routes pour les inscription aux concerts et recontres artistes
 
 Route::post('/register', [RegistrationController::class, 'registerParticipant']);
