@@ -4,6 +4,7 @@ import { faFacebookF, faTwitter, faInstagram, faLinkedin, faSnapchatGhost, faYou
 import Text from '../atoms/Text';
 import NavItem from '../molecules/NavItem';
 import axios from '../../config/axiosConfig';
+import Button from '../atoms/Button';
 
 const Footer = () => {
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '' });
@@ -86,9 +87,10 @@ const Footer = () => {
                 onChange={handleInputChange}
                 required
               />
-              <button type="submit" className="bg-custom-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
-                S'inscrire
-              </button>
+
+<Button type="sumbit"
+          label="S'inscrire"
+        />
             </form>
             {status && (
               <p className={`mt-2 text-center ${status === 'Inscription réussie!' ? 'text-light-blue' : 'text-error-red'}`}>
