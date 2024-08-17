@@ -44,6 +44,7 @@ const Filter = ({ data, filters, filterKeys, handleFilterChange, resetFilters })
           <Button 
             onClick={resetFilters} 
             label="Réinitialiser les filtres" 
+            type="button" 
           />
         </div>
       </form>

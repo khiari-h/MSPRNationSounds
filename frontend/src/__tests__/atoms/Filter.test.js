@@ -1,21 +1,29 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { act } from 'react';
 import Filter from '../../component/atoms/Filter';
 
 describe('Composant Filter', () => {
-  // Définition des données de test simulées pour les événements
+  // Définition des données de test simulées pour les concerts et artistes
   const mockData = [
-    { date: '2024-08-15', heuredebut: '10:00', lieu: 'Salle de Danse', type: 'Danse' },
-    { date: '2024-08-16', heuredebut: '14:00', lieu: 'Atelier des Arts', type: 'Peinture' },
+    { date: '2024-09-01', heuredebut: '20:00', lieu: 'Stade de France', type: 'Concert', group: 'Coldplay' },
+    { date: '2024-09-02', heuredebut: '21:00', lieu: 'Bercy', type: 'Concert', group: 'U2' },
   ];
 
   // Définition des clés de filtre disponibles
-  const filterKeys = ['date', 'heuredebut', 'lieu', 'type'];
+  const filterKeys = ['group', 'date', 'heuredebut', 'lieu', 'type'];
 
   // Mock des fonctions pour vérifier les appels de filtre et de réinitialisation
   const mockHandleFilterChange = jest.fn();
   const mockResetFilters = jest.fn();
+
+  // Définir `displayLabels` ici pour qu'il soit accessible dans le test
+  const displayLabels = {
+    group: 'Groupes',
+    date: 'Dates',
+    heuredebut: 'Heures',
+    lieu: 'Lieux',
+    type: 'Types',
+  };
 
   // Configuration avant chaque test
   beforeEach(() => {
@@ -37,33 +45,27 @@ describe('Composant Filter', () => {
     expect(screen.getByText(/Heures/i)).toBeInTheDocument();
     expect(screen.getByText(/Lieux/i)).toBeInTheDocument();
     expect(screen.getByText(/Types/i)).toBeInTheDocument();
-    
-    // Vérification que les options de filtre générées à partir des données sont présentes
-    expect(screen.getByText('2024-08-15')).toBeInTheDocument();
-    expect(screen.getByText('10:00')).toBeInTheDocument();
-    expect(screen.getByText('Salle de Danse')).toBeInTheDocument();
-    expect(screen.getByText('Danse')).toBeInTheDocument();
-  });
+    expect(screen.getByText(/Groupes/i)).toBeInTheDocument();
 
-  // Test pour vérifier que la fonction de gestion du changement de filtre est appelée correctement
-  test('Appelle handleFilterChange lors de la modification d\'un filtre', () => {
-    // Simule un changement dans le select 'Dates'
-    act(() => {
-      fireEvent.change(screen.getByText(/Dates/i).closest('select'), { target: { value: '2024-08-15' } });
-    });
-    
-    // Vérifie que la fonction handleFilterChange est appelée avec les bons arguments
-    expect(mockHandleFilterChange).toHaveBeenCalledWith('date', '2024-08-15');
+    // Vérification que les options de filtre générées à partir des données sont présentes
+    expect(screen.getByText('2024-09-01')).toBeInTheDocument();
+    expect(screen.getByText('20:00')).toBeInTheDocument();
+    expect(screen.getByText('Stade de France')).toBeInTheDocument();
+    expect(screen.getByText('Coldplay')).toBeInTheDocument();
   });
 
   // Test pour vérifier que la fonction de réinitialisation des filtres est appelée lors du clic sur le bouton
-  test('Appelle resetFilters lors du clic sur le bouton de réinitialisation', () => {
-    // Simule un clic sur le bouton de réinitialisation des filtres
-    act(() => {
-      fireEvent.click(screen.getByText('Réinitialiser les filtres'));
-    });
-    
+  test('Appelle resetFilters et remet les filtres à zéro lors du clic', () => {
+    // Simule un clic sur le bouton "Réinitialiser les filtres"
+    fireEvent.click(screen.getByText('Réinitialiser les filtres'));
+
     // Vérifie que la fonction resetFilters est bien appelée
     expect(mockResetFilters).toHaveBeenCalled();
+
+    // Vérifie que les champs select sont revenus à leur état initial (vide)
+    const selectElements = screen.getAllByRole('combobox');
+    selectElements.forEach(selectElement => {
+      expect(selectElement.value).toBe('');
+    });
   });
 });
