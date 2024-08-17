@@ -1,0 +1,43 @@
+[
+    {
+      "question": "Où se trouve le festival ?",
+      "answer": "Le festival se déroule à l'adresse suivante : 123 rue du Festival, Ville, Pays."
+    },
+    {
+      "question": "Quels sont les moyens de transport pour se rendre au festival ?",
+      "answer": "Transports en commun : Bus n°X, Tram n°Y. Navettes : Départ toutes les 30 minutes depuis la gare centrale. Parking : Disponible à proximité avec des tarifs spéciaux. Covoiturage : Consultez notre page Covoiturage."
+    },
+    {
+      "question": "Quels sont les horaires d'ouverture du festival ?",
+      "answer": "Le festival est ouvert de 10h à 23h tous les jours."
+    },
+    {
+      "question": "Quelles sont les options d'hébergement à proximité du festival ?",
+      "answer": "Hôtel 1 : Réserver - Description et prix. Camping 1 : Réserver - Description et prix. Partenariats et réductions disponibles pour les festivaliers."
+    },
+    {
+      "question": "Quels types de nourriture sont disponibles sur place ?",
+      "answer": "Stands de nourriture : Variété de plats y compris options végétariennes et vegan. Bars : Large choix de boissons."
+    },
+    {
+      "question": "Quelles sont les mesures de sécurité en place au festival ?",
+      "answer": "Contrôles à l'entrée : Tous les sacs seront fouillés. Objets interdits : Liste des objets interdits sur le site (armes, drogues, etc.). Règlement intérieur : Règles à respecter pendant le festival (pas de comportement violent, respect des autres festivaliers, etc.)."
+    },
+    {
+      "question": "Le festival est-il accessible aux personnes à mobilité réduite ?",
+      "answer": "Accès : Rampes d'accès et chemins adaptés. Services disponibles : Toilettes adaptées, zones de repos, assistance dédiée."
+    },
+    {
+      "question": "Puis-je apporter ma propre nourriture et boisson ?",
+      "answer": "Non, pour des raisons de sécurité et d'hygiène, il est interdit d'apporter de la nourriture et des boissons de l'extérieur."
+    },
+    {
+      "question": "Y a-t-il un service de consigne sur place ?",
+      "answer": "Oui, des consignes sont disponibles à l'entrée du festival pour que vous puissiez déposer vos affaires en toute sécurité."
+    },
+    {
+      "question": "Le festival est-il adapté aux enfants ?",
+      "answer": "Oui, des activités spéciales pour les enfants sont prévues, ainsi qu'un espace réservé aux familles."
+    }
+  ]
+  
