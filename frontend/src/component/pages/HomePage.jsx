@@ -4,10 +4,11 @@ import HeroSection from '../organisms/HeroSection';
 import NewsAndUpdates from '../organisms/NewsAndUpdates';
 import ConcertsOverview from '../organisms/ConcertsOverview';
 import ProgrammingOverview from '../organisms/ProgrammingOverview';
-import CTASection from '../molecules/CtaSection';
+import CTASection from '../molecules/CTASection';
 import PracticalInfo from '../organisms/PracticalInfo';
 import RegistrationForm from '../molecules/RegisterForm';
 import Map from '../organisms/Map';
+
 
 
 const HomePage = () => {
