@@ -100,4 +100,38 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer les concerts pour la page d\'accueil'], 500);
         }
     }
+
+    public function getConcertNames(): JsonResponse
+{
+    try {
+        $concerts = $this->wordpressService->getConcerts();
+        $concertNames = array_map(function ($concert) {
+            return ['id' => $concert['id'], 'name' => $concert['acf']['nom']];
+        }, $concerts);
+        Log::info('Noms des concerts récupérés avec succès.');
+        return response()->json($concertNames, 200);
+    } catch (\Exception $e) {
+        Log::error('Erreur lors de la récupération des noms des concerts.', ['error' => $e->getMessage()]);
+        return response()->json(['error' => 'Impossible de récupérer les noms des concerts'], 500);
+    }
+}
+
+public function getArtistMeetingNames(): JsonResponse
+{
+    try {
+        $artistMeetings = $this->wordpressService->getArtistsMeetings();
+        $artistMeetingNames = array_map(function ($meeting) {
+            return ['id' => $meeting['id'], 'name' => $meeting['acf']['nom']];
+        }, $artistMeetings);
+        Log::info('Noms des rencontres avec les artistes récupérés avec succès.');
+        return response()->json($artistMeetingNames, 200);
+    } catch (\Exception $e) {
+        Log::error('Erreur lors de la récupération des noms des rencontres avec les artistes.', ['error' => $e->getMessage()]);
+        return response()->json(['error' => 'Impossible de récupérer les noms des rencontres avec les artistes'], 500);
+    }
+}
+
+
+
+
 }

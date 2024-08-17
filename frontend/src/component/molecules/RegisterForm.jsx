@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axiosConfig from '../../config/axiosConfig'; 
 
 const RegistrationForm = () => {
@@ -10,8 +10,10 @@ const RegistrationForm = () => {
     eventName: '',
   });
 
+  const [events, setEvents] = useState([]); // Pour stocker les événements récupérés
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = useCallback((e) => {
     setFormData((prev) => ({
@@ -20,15 +22,45 @@ const RegistrationForm = () => {
     }));
   }, []);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      if (formData.type) {
+        try {
+          const endpoint = formData.type === 'concert' 
+            ? '/api/wordpress/concerts'
+            : '/api/wordpress/artists_meetings';
+          const response = await axiosConfig.get(endpoint);
+          console.log('Données reçues:', response.data); // Vérifiez les données ici
+          if (Array.isArray(response.data)) {
+            setEvents(response.data);
+          } else {
+            setEvents([]); // Si ce n'est pas un tableau, on vide la liste
+          }
+          setFormData((prev) => ({ ...prev, eventName: '' })); // Réinitialiser eventName lors du changement de type
+        } catch (error) {
+          console.error('Erreur lors du chargement des événements :', error);
+          setErrorMessage('Erreur lors du chargement des événements.');
+          setEvents([]); // Vider la liste en cas d'erreur
+        }
+      }
+    };
+
+    fetchEvents();
+  }, [formData.type]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
-      const response = await axiosConfig.post('/path-to-your-registration-endpoint', formData); // Remplacez par l'URL de votre API
+      await axiosConfig.post('/path-to-your-registration-endpoint', formData);
       setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
       setErrorMessage('');
     } catch (error) {
+      console.error('Erreur lors de l\'inscription :', error);
       setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
       setSuccessMessage('');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,21 +112,28 @@ const RegistrationForm = () => {
         <option value="concert">Concert</option>
         <option value="artistMeeting">Rencontre avec l'artiste</option>
       </select>
-      <input
-        type="text"
+      <select
         id="eventName"
         name="eventName"
-        placeholder="Nom de l'événement"
         value={formData.eventName}
         onChange={handleChange}
         required
+        disabled={!formData.type || events.length === 0}
         className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:col-span-4"
-      />
+      >
+        <option value="">Sélectionnez un événement</option>
+        {events.map((event) => (
+          <option key={event.id} value={event.name}>
+            {event.name}
+          </option>
+        ))}
+      </select>
       <button
         type="submit"
+        disabled={isSubmitting}
         className="bg-custom-blue-500 hover:bg-custom-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 md:col-span-1"
       >
-        S'inscrire
+        {isSubmitting ? 'En cours...' : "S'inscrire"}
       </button>
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}

@@ -24,4 +24,6 @@ Route::prefix('wordpress')->group(function () {
     Route::get('media/{mediaId}', [WordpressController::class, 'getMedia']);
     Route::get('programming-homepage', [WordpressController::class, 'getProgrammingHomepage']);
     Route::get('concerts-homepage', [WordpressController::class, 'getConcertsHomepage']);
+    Route::get('concert-names', [WordpressController::class, 'getConcertNames']);
+    Route::get('artist-meeting-names', [WordpressController::class, 'getArtistMeetingNames']);
 });
