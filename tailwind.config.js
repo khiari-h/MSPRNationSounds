@@ -25,6 +25,7 @@ module.exports = {
         'black': '#000000',
         'custom-yellow-500': '#FCD34D',
         'custom-gray': '#f0f0f0',
+        'border-gray': '#D1D5DB',
       },
     },
   },
