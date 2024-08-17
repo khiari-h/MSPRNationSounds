@@ -39,12 +39,5 @@ class RegistrationController extends Controller
         return response()->json(['message' => 'Inscription réussie !'], 201);
     }
 
-    // 2. Méthode pour récupérer la liste des événements
-    public function getEvents()
-    {
-        // Récupérer tous les événements
-        $events = Event::all();
 
-        return response()->json($events, 200);
-    }
 }

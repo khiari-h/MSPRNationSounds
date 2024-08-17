@@ -9,11 +9,17 @@ use App\Http\Controllers\NewsletterController;
 Route::post('/newsletter', [NewsletterController::class, 'subscribe']);
 
 
-// Routes pour les ressources News et Workshops
+// Routes pour les ressources News 
 Route::resources([
     'news' => NewsController::class,
 
 ]);
+
+
+// Routes pour les inscription aux concerts et recontres artistes
+
+Route::post('/register', [RegistrationController::class, 'registerParticipant']);
+
 
 // Routes pour les appels à l'API WordPress
 Route::prefix('wordpress')->group(function () {
