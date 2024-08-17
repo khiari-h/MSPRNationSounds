@@ -9,7 +9,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Text from '../atoms/Text';
 import './Map.css';
 import he from 'he';
-import GeolocationButton from '../atoms/GeolocationBouton';
+import GeolocationButton from '../atoms/GeolocationButton';
+
 
 // Suppression des icônes Leaflet par défaut
 delete L.Icon.Default.prototype._getIconUrl;
