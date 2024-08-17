@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axiosConfig from '../../config/axiosConfig'; 
+import Button from '../atoms/Button'; // Assurez-vous que le chemin est correct
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -26,27 +27,27 @@ const RegistrationForm = () => {
     const fetchEvents = async () => {
       if (formData.type) {
         try {
-          const endpoint = formData.type === 'concert' 
-            ? '/api/wordpress/concerts'
-            : '/api/wordpress/artists_meetings';
+          const endpoint = formData.type === 'concerts' 
+            ? '/api/wordpress/concert-names'
+            : '/api/wordpress/artist-meeting-names';
           const response = await axiosConfig.get(endpoint);
-          console.log('Données reçues:', response.data); // Vérifiez les données ici
           if (Array.isArray(response.data)) {
             setEvents(response.data);
           } else {
-            setEvents([]); // Si ce n'est pas un tableau, on vide la liste
+            setEvents([]);
           }
-          setFormData((prev) => ({ ...prev, eventName: '' })); // Réinitialiser eventName lors du changement de type
+          setFormData((prev) => ({ ...prev, eventName: '' }));
         } catch (error) {
           console.error('Erreur lors du chargement des événements :', error);
           setErrorMessage('Erreur lors du chargement des événements.');
-          setEvents([]); // Vider la liste en cas d'erreur
+          setEvents([]);
         }
       }
     };
-
+  
     fetchEvents();
   }, [formData.type]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,8 +110,8 @@ const RegistrationForm = () => {
         className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       >
         <option value="">Type</option>
-        <option value="concert">Concert</option>
-        <option value="artistMeeting">Rencontre avec l'artiste</option>
+        <option value="concerts">Concerts</option>
+        <option value="artists">Artistes</option>
       </select>
       <select
         id="eventName"
@@ -128,13 +129,13 @@ const RegistrationForm = () => {
           </option>
         ))}
       </select>
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
         className="bg-custom-blue-500 hover:bg-custom-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 md:col-span-1"
       >
         {isSubmitting ? 'En cours...' : "S'inscrire"}
-      </button>
+      </Button>
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
     </form>
