@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import axiosConfig from '../../config/axiosConfig';  // Utilisation de axiosConfig
+import axiosConfig from '../../config/axiosConfig'; 
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
