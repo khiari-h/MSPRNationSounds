@@ -1,23 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\Participant;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
     // 1. Méthode pour inscrire un participant à un événement
     public function registerParticipant(Request $request)
     {
-        // Validation des données reçues
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:participants,email',
-            'event_id' => 'required|exists:events,id',
-        ]);
 
         // Créer ou trouver le participant sur base de l'email
         $participant = Participant::firstOrCreate(

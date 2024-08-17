@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\WordpressController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\RegistrationController;
 
 // Route pour l'inscription à la newsletter
 Route::post('/newsletter', [NewsletterController::class, 'subscribe']);
