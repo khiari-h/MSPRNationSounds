@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axiosConfig from '../../config/axiosConfig'; 
-import Button from '../atoms/Button'; // Assurez-vous que le chemin est correct
+import Button from '../atoms/Button'; 
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -130,12 +130,9 @@ const RegistrationForm = () => {
         ))}
       </select>
       <Button
-        type="submit"
-        disabled={isSubmitting}
-        className="bg-custom-blue-500 hover:bg-custom-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300 md:col-span-1"
-      >
-        {isSubmitting ? 'En cours...' : "S'inscrire"}
-      </Button>
+          label="S'inscrire"
+        />
+
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
     </form>
