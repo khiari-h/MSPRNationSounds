@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import { act } from 'react';
 import Button from '../../component/atoms/Button';
 
 describe('Composant Button', () => {
@@ -16,8 +17,10 @@ describe('Composant Button', () => {
     const handleClick = jest.fn(); // Mock de la fonction onClick
     const { getByText } = render(<Button label="Cliquer ici" onClick={handleClick} />);
     
-    // Simule un clic sur le bouton
-    fireEvent.click(getByText('Cliquer ici'));
+    // Simule un clic sur le bouton dans un `act` pour s'assurer que toutes les mises à jour sont appliquées
+    act(() => {
+      fireEvent.click(getByText('Cliquer ici'));
+    });
     
     // Vérifie que la fonction onClick a été appelée une fois
     expect(handleClick).toHaveBeenCalledTimes(1);

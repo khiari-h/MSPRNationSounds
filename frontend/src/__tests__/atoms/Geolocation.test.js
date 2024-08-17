@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { act } from 'react';
 import GeolocationButton from '../../component/atoms/GeolocationButton';
 
 describe('Composant GeolocationButton', () => {
@@ -21,9 +22,11 @@ describe('Composant GeolocationButton', () => {
     // Rendu du composant avec la fonction mockée
     render(<GeolocationButton onClick={mockOnClick} />);
     
-    // Simule un clic sur le bouton
-    fireEvent.click(screen.getByRole('button', { name: /Localiser ma position/i }));
-    
+    // Utilisation de `act` pour gérer l'interaction
+    act(() => {
+      fireEvent.click(screen.getByRole('button', { name: /Localiser ma position/i }));
+    });
+
     // Vérifie que la fonction onClick a été appelée une fois
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
