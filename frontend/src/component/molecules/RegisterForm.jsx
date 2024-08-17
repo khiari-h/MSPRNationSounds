@@ -8,7 +8,7 @@ const RegistrationForm = () => {
     lastName: '',
     email: '',
     type: '',
-    eventName: '',
+    eventId: '', // Changer eventName par eventId
   });
 
   const [events, setEvents] = useState([]); // Pour stocker les événements récupérés
@@ -36,7 +36,7 @@ const RegistrationForm = () => {
           } else {
             setEvents([]);
           }
-          setFormData((prev) => ({ ...prev, eventName: '' }));
+          setFormData((prev) => ({ ...prev, eventId: '' })); // Réinitialiser eventId
         } catch (error) {
           console.error('Erreur lors du chargement des événements :', error);
           setErrorMessage('Erreur lors du chargement des événements.');
@@ -53,7 +53,12 @@ const RegistrationForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axiosConfig.post('/path-to-your-registration-endpoint', formData);
+      await axiosConfig.post('/register', {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        event_id: formData.eventId, // Envoyer eventId au lieu de eventName
+      });
       setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
       setErrorMessage('');
     } catch (error) {
@@ -114,9 +119,9 @@ const RegistrationForm = () => {
         <option value="artists">Artistes</option>
       </select>
       <select
-        id="eventName"
-        name="eventName"
-        value={formData.eventName}
+        id="eventId" // Changer eventName par eventId
+        name="eventId"
+        value={formData.eventId}
         onChange={handleChange}
         required
         disabled={!formData.type || events.length === 0}
@@ -124,14 +129,16 @@ const RegistrationForm = () => {
       >
         <option value="">Sélectionnez un événement</option>
         {events.map((event) => (
-          <option key={event.id} value={event.name}>
+          <option key={event.id} value={event.id}>
             {event.name}
           </option>
         ))}
       </select>
       <Button
           label="S'inscrire"
-        />
+          type="submit"
+          disabled={isSubmitting}
+      />
 
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
