@@ -37,9 +37,6 @@ jobs:
         php-version: '8.2'
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
-    - name: Copier .env en .env
-      run: cp .env.example .env  # Correction de la commande pour copier le bon fichier
-
     - name: Attendre que MySQL soit prêt
       run: sleep 20  # Attendre 20 secondes pour que MySQL soit prêt
 
