@@ -56,10 +56,8 @@ jobs:
     - name: Attendre que MySQL soit prêt
       run: sleep 60  # Attendre 60 secondes pour que MySQL soit prêt
 
-    - name: Vérifier la connectivité MySQL
-      run: |
-        apt-get update && apt-get install -y netcat
-        nc -zv mysql 3306
+    - name: Vérifier la disponibilité de MySQL
+      run: mysqladmin -h mysql -u root ping
 
     - name: Installer les dépendances Composer
       run: composer install --prefer-dist --no-progress
