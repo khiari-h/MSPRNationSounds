@@ -31,10 +31,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4  # Mise à jour vers la dernière version stable
 
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'  # Assurez-vous d'utiliser PHP 8.2
+        extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
+
     - name: Installer les dépendances Composer
       run: |
         cd backend  # Naviguer vers le répertoire contenant le fichier composer.json
-        composer install --prefer-dist --no-progress  # Suppression de l'option --no-suggest
+        composer install --prefer-dist --no-progress
 
     - name: Copier .env.example en .env
       run: |
