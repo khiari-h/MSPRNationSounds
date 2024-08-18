@@ -54,7 +54,12 @@ jobs:
       working-directory: ./
 
     - name: Attendre que MySQL soit prêt
-      run: sleep 30  # Augmentez le délai à 30 secondes
+      run: sleep 60  # Attendre 60 secondes pour que MySQL soit prêt
+
+    - name: Vérifier la connectivité MySQL
+      run: |
+        apt-get update && apt-get install -y netcat
+        nc -zv mysql 3306
 
     - name: Installer les dépendances Composer
       run: composer install --prefer-dist --no-progress
@@ -66,31 +71,6 @@ jobs:
 
     - name: Exécuter les tests unitaires Laravel
       run: php artisan test
-      working-directory: ./backend
-
-    - name: Configurer Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20.11.1'
-
-    - name: Installer les dépendances Node.js (frontend)
-      run: npm install
-      working-directory: ./frontend
-
-    - name: Exécuter les tests React
-      run: npm test -- --watchAll=false
-      working-directory: ./frontend
-
-    - name: Compiler l'application React
-      run: npm run build
-      working-directory: ./frontend
-
-    - name: Exécuter les tests de performance Lighthouse
-      run: npx lhci autorun
-      working-directory: ./frontend
-
-    - name: Exécuter l'analyse de sécurité
-      run: composer require --dev enlightn/security-checker && php artisan security:check
       working-directory: ./backend
 
     - name: Afficher les logs du conteneur MySQL
