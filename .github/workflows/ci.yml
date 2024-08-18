@@ -38,7 +38,7 @@ jobs:
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
     - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress  # Removed --no-suggest option
 
     - name: Copy .env.example to .env
       run: cp .env.example .env
