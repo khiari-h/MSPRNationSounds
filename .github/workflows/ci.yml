@@ -18,7 +18,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: nationsoundsdevelopment
+          MYSQL_DATABASE: nationsoundstest
         ports:
           - 3307:3306  # Modification du mappage de port pour éviter les conflits
         options: >-
@@ -40,6 +40,9 @@ jobs:
     - name: Configurer le fichier .env pour les tests
       run: |
         cp backend/.env.testing backend/.env
+
+    - name: Attendre que MySQL soit prêt
+      run: sleep 15  # Attendre 15 secondes
 
     - name: Installer les dépendances Composer
       run: |
