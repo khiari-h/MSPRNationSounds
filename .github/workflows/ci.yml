@@ -19,10 +19,8 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: nationsoundsdevelopment
-          MYSQL_USER: root
-          MYSQL_PASSWORD: ""
         ports:
-          - 3306:3306
+          - 3307:3306  # Port mapping changed to avoid conflicts
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
@@ -74,3 +72,7 @@ jobs:
       run: |
         composer require --dev enlightn/security-checker
         php artisan security:check
+
+    - name: Get MySQL container logs
+      if: failure()
+      run: docker logs $(docker ps -q --filter "ancestor=mysql:5.7")
