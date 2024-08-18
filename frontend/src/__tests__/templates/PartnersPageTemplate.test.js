@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import PartnersPageTemplate from '../../component/templates/PartnersPageTemplate';
 
 describe('Composant PartnersPageTemplate', () => {
@@ -31,7 +31,14 @@ describe('Composant PartnersPageTemplate', () => {
     );
 
     expect(screen.getByText(/Filtres/i)).toBeInTheDocument();
-    expect(screen.getByText(/Partenaires/i)).toBeInTheDocument();
+
+    // Cible l'élément "Partenaires" spécifique dans le conteneur "main"
+    const mainContainer = screen.getByRole('main');
+    
+    // Cherche spécifiquement l'élément "Partenaires" en tant que div
+    const partnersElement = within(mainContainer).getByText(/Partenaires/i, { selector: 'div' });
+    expect(partnersElement).toBeInTheDocument();
+
     expect(screen.getByText(/CTA Section/i)).toBeInTheDocument();
     expect(screen.getByText(/Message Section/i)).toBeInTheDocument();
   });
@@ -47,6 +54,7 @@ describe('Composant PartnersPageTemplate', () => {
       />
     );
 
-    expect(screen.getByText(/Nos Partenaires/i)).toBeInTheDocument();
+    // Vérifie la présence du titre principal
+    expect(screen.getByRole('heading', { name: /Nos Partenaires/i })).toBeInTheDocument();
   });
 });

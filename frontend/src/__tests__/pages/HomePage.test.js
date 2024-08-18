@@ -23,7 +23,8 @@ describe('Composant HomePage', () => {
   test('affiche le bouton CTA "Acheter des billets"', () => {
     render(<HomePage />);
 
-    expect(screen.getByRole('link', { name: /Acheter des billets/i })).toBeInTheDocument();
+    const buyTicketLinks = screen.getAllByRole('link', { name: /Acheter des billets/i });
+    expect(buyTicketLinks[0]).toBeInTheDocument(); // Vérifie le premier bouton "Acheter des billets"
   });
 
   // Test pour vérifier que la carte est affichée

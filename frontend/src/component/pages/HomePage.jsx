@@ -31,7 +31,7 @@ const HomePage = () => {
       heroSection={<HeroSection />}
       newsAndUpdates={<NewsAndUpdates />}
       concertsOverview={<ConcertsOverview />}
-      ProgrammingOverview={<ProgrammingOverview/>}
+      programmingOverview={<ProgrammingOverview/>}
       ctaBeforeMap={
         <CTASection
           title="Réservez vos billets pour une expérience inoubliable!"

@@ -5,7 +5,7 @@ import Footer from '../organisms/Footer';
 
 
 
-const HomePageTemplate = ({ heroSection, newsAndUpdates, concertsOverview, ProgrammingOverview, ctaBeforeMap, registerForm, practicalInfo, map, ctaAfterMap }) => {
+const HomePageTemplate = ({ heroSection, newsAndUpdates, concertsOverview, programmingOverview, ctaBeforeMap, registerForm, practicalInfo, map, ctaAfterMap }) => {
   return (
     <div className="bg-global text-concert-text min-h-screen">
       <Header />
@@ -18,7 +18,7 @@ const HomePageTemplate = ({ heroSection, newsAndUpdates, concertsOverview, Progr
   {concertsOverview}
 </section>
 <section aria-labelledby="aperçu-programmation">
-  {ProgrammingOverview}
+  {programmingOverview}
 </section>
 <section aria-labelledby="cta-avant-carte">
   {ctaBeforeMap}

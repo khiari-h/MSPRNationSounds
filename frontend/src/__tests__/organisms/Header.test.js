@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react';
-import Header from '../../component/molecules/Header';
+import Header from '../../component/organisms/Header';
 
 describe('Composant Header', () => {
 

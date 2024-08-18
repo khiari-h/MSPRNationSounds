@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
 import axiosConfig from '../../config/axiosConfig';
-import ConcertsOverview from '../../component/molecules/ConcertsOverview';
+import ConcertsOverview from '../../component/organisms/ConcertsOverview';
 
 jest.mock('../../config/axiosConfig');
 

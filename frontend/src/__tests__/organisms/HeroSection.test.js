@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { act } from 'react';
-import HeroSection from '../../component/molecules/HeroSection';
+import HeroSection from '../../component/organisms/HeroSection';
 
 describe('Composant HeroSection', () => {
 

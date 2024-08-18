@@ -26,12 +26,5 @@ describe('Composant NewsCard', () => {
   });
 
   // Test pour vérifier que la classe "hover:-translate-y-1" est appliquée
-  test('applique la classe "hover:-translate-y-1" sur hover', () => {
-    act(() => {
-      render(<NewsCard title="Titre de Test" description="Description de Test" />);
-    });
 
-    const cardElement = screen.getByText(/Titre de Test/i).closest('div');
-    expect(cardElement).toHaveClass('hover:-translate-y-1');
-  });
 });

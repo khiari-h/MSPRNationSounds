@@ -11,11 +11,11 @@ describe('Composant HomePageTemplate', () => {
         heroSection={<div>Hero Section</div>}
         newsAndUpdates={<div>News and Updates</div>}
         concertsOverview={<div>Concerts Overview</div>}
-        ProgrammingOverview={<div>Programming Overview</div>}
+        programmingOverview={<div>Programming Overview</div>}
         ctaBeforeMap={<div>CTA Before Map</div>}
         registerForm={<div>Registration Form</div>}
         practicalInfo={<div>Practical Info</div>}
-        map={<div>Map</div>}
+        map={<div aria-label="festival-map">Map</div>}
         ctaAfterMap={<div>CTA After Map</div>}
       />
     );
@@ -31,23 +31,23 @@ describe('Composant HomePageTemplate', () => {
         heroSection={<div>Hero Section</div>}
         newsAndUpdates={<div>News and Updates</div>}
         concertsOverview={<div>Concerts Overview</div>}
-        ProgrammingOverview={<div>Programming Overview</div>}
+        programmingOverview={<div>Programming Overview</div>}
         ctaBeforeMap={<div>CTA Before Map</div>}
         registerForm={<div>Registration Form</div>}
         practicalInfo={<div>Practical Info</div>}
-        map={<div>Map</div>}
+        map={<div aria-label="festival-map">Map</div>}
         ctaAfterMap={<div>CTA After Map</div>}
       />
     );
 
-    expect(screen.getByText(/Hero Section/i)).toBeInTheDocument();
-    expect(screen.getByText(/News and Updates/i)).toBeInTheDocument();
-    expect(screen.getByText(/Concerts Overview/i)).toBeInTheDocument();
-    expect(screen.getByText(/Programming Overview/i)).toBeInTheDocument();
-    expect(screen.getByText(/CTA Before Map/i)).toBeInTheDocument();
-    expect(screen.getByText(/Registration Form/i)).toBeInTheDocument();
-    expect(screen.getByText(/Practical Info/i)).toBeInTheDocument();
-    expect(screen.getByText(/Map/i)).toBeInTheDocument();
-    expect(screen.getByText(/CTA After Map/i)).toBeInTheDocument();
+    expect(screen.getByText('Hero Section')).toBeInTheDocument();
+    expect(screen.getByText('News and Updates')).toBeInTheDocument();
+    expect(screen.getByText('Concerts Overview')).toBeInTheDocument();
+    expect(screen.getByText('Programming Overview')).toBeInTheDocument();
+    expect(screen.getByText('CTA Before Map')).toBeInTheDocument();
+    expect(screen.getByText('Registration Form')).toBeInTheDocument();
+    expect(screen.getByText('Practical Info')).toBeInTheDocument();
+    expect(screen.getByLabelText('festival-map')).toBeInTheDocument();
+    expect(screen.getByText('CTA After Map')).toBeInTheDocument();
   });
 });

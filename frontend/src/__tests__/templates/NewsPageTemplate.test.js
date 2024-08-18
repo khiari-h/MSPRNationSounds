@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import NewsPageTemplate from '../../component/templates/NewsPageTemplate';
 
 describe('Composant NewsPageTemplate', () => {
@@ -46,6 +46,7 @@ describe('Composant NewsPageTemplate', () => {
       />
     );
 
-    expect(screen.getByText(/Actualités/i)).toBeInTheDocument();
+    // Recherche spécifiquement dans le rôle heading pour éviter le lien de navigation
+    expect(screen.getByRole('heading', { name: /Actualités/i })).toBeInTheDocument();
   });
 });

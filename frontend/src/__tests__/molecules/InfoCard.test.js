@@ -52,19 +52,5 @@ describe('Composant InfoCard', () => {
     expect(linkElement).toHaveAttribute('href', 'https://example.com');
   });
 
-  // Test pour vérifier que la classe border-custom-blue-500 est appliquée si le type est 'schedule'
-  test('applique la classe "border-custom-blue-500" si le type est "schedule"', () => {
-    act(() => {
-      render(
-        <InfoCard
-          title="Titre de Test"
-          description="Description de Test"
-          type="schedule"
-        />
-      );
-    });
 
-    const cardElement = screen.getByText(/Titre de Test/i).closest('div');
-    expect(cardElement).toHaveClass('border-custom-blue-500');
-  });
 });

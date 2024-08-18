@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react';
 import axiosConfig from '../../config/axiosConfig';
-import NewsAndUpdates from '../../component/molecules/NewsAndUpdates';
+import NewsAndUpdates from '../../component/organisms/NewsAndUpdates';
 
 jest.mock('../../config/axiosConfig');
 

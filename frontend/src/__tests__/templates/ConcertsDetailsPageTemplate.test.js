@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import ConcertsDetailsPageTemplate from '../../component/templates/ConcertsDetailsPageTemplate';
 
 describe('Composant ConcertsDetailsPageTemplate', () => {
@@ -27,7 +27,10 @@ describe('Composant ConcertsDetailsPageTemplate', () => {
     );
 
     expect(screen.getByText(/Filtres/i)).toBeInTheDocument();
-    expect(screen.getByText(/Concerts/i)).toBeInTheDocument();
+
+    // Au lieu de chercher par texte "Concerts", on utilise un rôle ou un autre attribut spécifique
+    const concertsContainer = screen.getByText('Concerts', { selector: 'div' });
+    expect(concertsContainer).toBeInTheDocument();
   });
 
   // Test pour vérifier que le titre principal est affiché

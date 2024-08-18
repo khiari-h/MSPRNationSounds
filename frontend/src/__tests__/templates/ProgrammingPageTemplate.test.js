@@ -31,8 +31,9 @@ describe('Composant ProgrammingPageTemplate', () => {
       </ProgrammingPageTemplate>
     );
 
-    const concertsButton = screen.getByText(/Concerts/i);
-    const artistMeetingsButton = screen.getByText(/Rencontres avec les Artistes/i);
+    // Cible spécifiquement le bouton de la section "Concerts"
+    const concertsButton = screen.getByRole('button', { name: /Concerts/i });
+    const artistMeetingsButton = screen.getByRole('button', { name: /Rencontres avec les Artistes/i });
 
     expect(concertsButton).toBeInTheDocument();
     expect(artistMeetingsButton).toBeInTheDocument();
