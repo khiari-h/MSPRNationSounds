@@ -20,7 +20,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: nationsoundsdevelopment
         ports:
-          - 3307:3306  # Port mapping changed to avoid conflicts
+          - 3307:3306  # Modification du mappage de port pour éviter les conflits
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
@@ -29,50 +29,60 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Updated to the latest stable version
+      uses: actions/checkout@v4  # Mise à jour vers la dernière version stable
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
-
-    - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress  # Removed --no-suggest option
-
-    - name: Copy .env.example to .env
-      run: cp .env.example .env
-
-    - name: Set up database
+    - name: Installer les dépendances Composer
       run: |
+        cd backend  # Naviguer vers le répertoire contenant le fichier composer.json
+        composer install --prefer-dist --no-progress  # Suppression de l'option --no-suggest
+
+    - name: Copier .env.example en .env
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
+        cp .env.example .env
+
+    - name: Configurer la base de données
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
         php artisan key:generate
         php artisan migrate --no-interaction --force
 
-    - name: Run Laravel unit tests
-      run: php artisan test
+    - name: Exécuter les tests unitaires Laravel
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
+        php artisan test
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3  # Updated to the latest stable version
+    - name: Configurer Node.js
+      uses: actions/setup-node@v3  # Mise à jour vers la dernière version stable
       with:
         node-version: '20.11.1'
 
-    - name: Install Node.js dependencies
-      run: npm install
-
-    - name: Run React tests
-      run: npm test -- --watchAll=false
-
-    - name: Build React app
-      run: npm run build
-
-    - name: Run Lighthouse performance tests
-      run: npx lhci autorun
-
-    - name: Run security analysis
+    - name: Installer les dépendances Node.js
       run: |
+        cd backend  # Naviguer vers le répertoire backend
+        npm install
+
+    - name: Exécuter les tests React
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
+        npm test -- --watchAll=false
+
+    - name: Compiler l'application React
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
+        npm run build
+
+    - name: Exécuter les tests de performance Lighthouse
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
+        npx lhci autorun
+
+    - name: Exécuter l'analyse de sécurité
+      run: |
+        cd backend  # Naviguer vers le répertoire backend
         composer require --dev enlightn/security-checker
         php artisan security:check
 
-    - name: Get MySQL container logs
+    - name: Obtenir les logs du conteneur MySQL
       if: failure()
       run: docker logs $(docker ps -q --filter "ancestor=mysql:5.7")
