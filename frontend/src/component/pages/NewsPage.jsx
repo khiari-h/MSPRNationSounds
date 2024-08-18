@@ -44,7 +44,8 @@ const NewsPage = () => {
   const paginatedNews = filteredNews.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const filterButtons = (
-    <div className="flex justify-center mb-6">
+    <div className="flex flex-wrap justify-center mb-6">
+
       {uniqueCategories.map((category) => (
         <Button
           key={category}
