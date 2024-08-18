@@ -37,15 +37,14 @@ jobs:
         php-version: '8.2'  # Assurez-vous d'utiliser PHP 8.2
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
+    - name: Configurer le fichier .env pour les tests
+      run: |
+        cp backend/.env.testing backend/.env
+
     - name: Installer les dépendances Composer
       run: |
         cd backend  # Naviguer vers le répertoire contenant le fichier composer.json
         composer install --prefer-dist --no-progress
-
-    - name: Copier .env.example en .env
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        cp .env.example .env
 
     - name: Configurer la base de données
       run: |
