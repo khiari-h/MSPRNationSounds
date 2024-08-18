@@ -1,45 +1,54 @@
-NationSounds
+# NationSounds
+
 NationSounds est un projet de festival de musique qui offre des informations complètes sur les concerts, les rencontres avec les artistes, ainsi que les informations pratiques sur le festival. Il comprend également une carte interactive pour se repérer, avec la localisation des scènes et les concerts en cours.
 
-Table des matières
-Aperçu
-Technologies utilisées
-Prérequis
-Installation
-Démarrage
-Tests
-Déploiement
-Contributions
-Licence
-Contact
-Aperçu
+## Table des matières
+
+- [Aperçu](#aperçu)
+- [Technologies utilisées](#technologies-utilisées)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Démarrage](#démarrage)
+- [Tests](#tests)
+- [Déploiement](#déploiement)
+- [Contributions](#contributions)
+- [Licence](#licence)
+- [Contact](#contact)
+
+## Aperçu
+
 NationSounds est une plateforme dédiée à la gestion et à la présentation des événements d'un festival de musique. Elle permet aux utilisateurs de :
 
-Consulter les concerts et événements à venir.
-Obtenir des informations sur les artistes et les rencontres.
-Visualiser une carte du festival pour se repérer.
-Voir en temps réel les concerts en cours.
-Technologies utilisées
-Front-end : React.js
-Back-end : Laravel
-CI/CD : Pipeline d'intégration et déploiement continu (CI/CD)
-Node.js : Version 20.11.1
-Tests :
-Tests de composants : Jest
-Tests end-to-end (E2E) : Cypress
-Prérequis
+- Consulter les concerts et événements à venir.
+- Obtenir des informations sur les artistes et les rencontres.
+- Visualiser une carte du festival pour se repérer.
+- Voir en temps réel les concerts en cours.
+
+## Technologies utilisées
+
+- **Front-end** : React.js
+- **Back-end** : Laravel
+- **CI/CD** : Pipeline d'intégration et déploiement continu (CI/CD)
+- **Node.js** : Version 20.11.1
+- **Tests** :
+  - Tests de composants : Jest
+  - Tests end-to-end (E2E) : Cypress
+
+## Prérequis
+
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
-Node.js : Version 20.11.1 ou supérieure
-npm : Inclut avec Node.js
-Git : Pour cloner le dépôt
-Installation
-Cloner le dépôt
+- **Node.js** : Version 20.11.1 ou supérieure
+- **npm** : Inclut avec Node.js
+- **Git** : Pour cloner le dépôt
 
-bash
-Copier le code
-git clone https://github.com/yourusername/NationSounds.git
-cd NationSounds
+## Installation
+
+1. **Cloner le dépôt**
+
+   ```bash
+   git clone https://github.com/yourusername/NationSounds.git
+   cd NationSounds
 Installer les dépendances
 
 Pour le front-end (React) :
@@ -61,11 +70,13 @@ Créez un fichier .env dans les répertoires frontend et backend à partir des e
 
 Démarrage
 Front-end
+
 bash
 Copier le code
 cd frontend
 npm start
 Back-end
+
 bash
 Copier le code
 cd backend
@@ -74,6 +85,7 @@ Les applications front-end et back-end devraient maintenant être accessibles vi
 
 Tests
 Tests de composants (Jest)
+
 Pour exécuter les tests de composants avec Jest, utilisez :
 
 bash
@@ -81,6 +93,7 @@ Copier le code
 cd frontend
 npm run test
 Tests end-to-end (Cypress)
+
 Pour lancer Cypress en mode interactif :
 
 bash
