@@ -41,24 +41,20 @@ describe('Composant Accordion', () => {
     expect(contentElement).toBeInTheDocument();
   });
 
-  // Test pour vérifier que le contenu de l'accordéon est masqué lorsqu'on reclique sur le titre
-  test('masque le contenu lorsque le titre est recliqué', async () => {
-    act(() => {
-      render(<Accordion title="Titre de Test">Contenu de Test</Accordion>);
-    });
-
-    const buttonElement = screen.getByRole('button');
-    
-    act(() => {
-      fireEvent.click(buttonElement); // Ouvrir l'accordéon
-      fireEvent.click(buttonElement); // Fermer l'accordéon
-    });
-
-    // Utilisation de waitFor pour attendre que le contenu soit masqué
-    await waitFor(() => {
-      const contentElement = screen.queryByText(/Contenu de Test/i);
-      expect(contentElement).not.toBeInTheDocument();
-    });
-  });
+ // Test pour vérifier que le contenu de l'accordéon est masqué lorsqu'on reclique sur le titre
+ test('masque le contenu lorsque le titre est recliqué', () => {
+  render(<Accordion title="Titre de Test">Contenu de Test</Accordion>);
+  const buttonElement = screen.getByRole('button');
+  
+  // Ouvrir l'accordéon
+  fireEvent.click(buttonElement);
+  
+  // Fermer l'accordéon
+  fireEvent.click(buttonElement);
+  
+  // Vérifier que le contenu est masqué
+  const contentElement = screen.queryByText(/Contenu de Test/i);
+  expect(contentElement).not.toBeInTheDocument();
+});
 
 });
