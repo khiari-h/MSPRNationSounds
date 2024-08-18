@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { act } from 'react';
-import PartnerCard from '../../component/molecules/PartnerCard';
+import PartnerCard from '../../component/molecules/PartnersCard';
 
 describe('Composant PartnerCard', () => {
 
