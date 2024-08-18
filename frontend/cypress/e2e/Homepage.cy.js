@@ -1,12 +1,12 @@
-describe('Homepage Tests', () => {
-  it('Should load the homepage and verify the main sections', () => {
+describe('Tests de la page d\'accueil', () => {
+  it('Doit charger la page d\'accueil et vérifier les sections principales', () => {
     // Visite la page d'accueil
     cy.visit('http://localhost:3000'); // Remplace par l'URL locale correcte si nécessaire
 
-    // Vérifie que le header est visible
+    // Vérifie que l'en-tête est visible
     cy.get('header').should('be.visible');
 
-    // Vérifie que le HeroSection est présent
+    // Vérifie que la section Hero est présente
     cy.get('section').contains('Réservez vos billets').should('be.visible');
 
     // Vérifie que la section Actualités et Mises à Jour est présente
@@ -30,11 +30,11 @@ describe('Homepage Tests', () => {
     // Vérifie que le CTA après la carte est visible
     cy.get('section[aria-labelledby="cta-apres-carte"]').contains('Nos Partenaires').should('be.visible');
 
-    // Vérifie que le footer est visible
+    // Vérifie que le pied de page est visible
     cy.get('footer').should('be.visible');
   });
 
-  it('Should navigate to the Partners page when clicking on the CTA', () => {
+  it('Doit naviguer vers la page des Partenaires en cliquant sur le CTA', () => {
     // Visite la page d'accueil
     cy.visit('http://localhost:3000'); // Remplace par l'URL locale correcte si nécessaire
 
