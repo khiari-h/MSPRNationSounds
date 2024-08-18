@@ -10,7 +10,7 @@ describe('Composant Accordion', () => {
     act(() => {
       render(<Accordion title="Titre de Test">Contenu de Test</Accordion>);
     });
-    
+
     const titleElement = screen.getByText(/Titre de Test/i);
     expect(titleElement).toBeInTheDocument();
   });
@@ -20,7 +20,7 @@ describe('Composant Accordion', () => {
     act(() => {
       render(<Accordion title="Titre de Test">Contenu de Test</Accordion>);
     });
-    
+
     const contentElement = screen.queryByText(/Contenu de Test/i);
     expect(contentElement).not.toBeInTheDocument();
   });
@@ -36,7 +36,7 @@ describe('Composant Accordion', () => {
     act(() => {
       fireEvent.click(buttonElement);
     });
-    
+
     const contentElement = screen.getByText(/Contenu de Test/i);
     expect(contentElement).toBeInTheDocument();
   });
@@ -46,7 +46,7 @@ describe('Composant Accordion', () => {
     act(() => {
       render(<Accordion title="Titre de Test">Contenu de Test</Accordion>);
     });
-    
+
     const buttonElement = screen.getByRole('button');
     
     act(() => {
@@ -60,4 +60,5 @@ describe('Composant Accordion', () => {
       expect(contentElement).not.toBeInTheDocument();
     });
   });
+
 });
