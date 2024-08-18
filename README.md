@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+NationSounds
+NationSounds est un projet de festival de musique qui offre des informations complètes sur les concerts, les rencontres avec les artistes, ainsi que les informations pratiques sur le festival. Il comprend également une carte interactive pour se repérer, avec la localisation des scènes et les concerts en cours.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Table des matières
+Aperçu
+Technologies utilisées
+Prérequis
+Installation
+Démarrage
+Tests
+Déploiement
+Contributions
+Licence
+Contact
+Aperçu
+NationSounds est une plateforme dédiée à la gestion et à la présentation des événements d'un festival de musique. Elle permet aux utilisateurs de :
 
-## Available Scripts
+Consulter les concerts et événements à venir.
+Obtenir des informations sur les artistes et les rencontres.
+Visualiser une carte du festival pour se repérer.
+Voir en temps réel les concerts en cours.
+Technologies utilisées
+Front-end : React.js
+Back-end : Laravel
+CI/CD : Pipeline d'intégration et déploiement continu (CI/CD)
+Node.js : Version 20.11.1
+Tests :
+Tests de composants : Jest
+Tests end-to-end (E2E) : Cypress
+Prérequis
+Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
-In the project directory, you can run:
+Node.js : Version 20.11.1 ou supérieure
+npm : Inclut avec Node.js
+Git : Pour cloner le dépôt
+Installation
+Cloner le dépôt
 
-### `npm start`
+bash
+Copier le code
+git clone https://github.com/yourusername/NationSounds.git
+cd NationSounds
+Installer les dépendances
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Pour le front-end (React) :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+Copier le code
+cd frontend
+npm install
+Pour le back-end (Laravel) :
 
-### `npm test`
+bash
+Copier le code
+cd backend
+composer install
+npm install
+Configurer les variables d'environnement
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Créez un fichier .env dans les répertoires frontend et backend à partir des exemples .env.example et configurez les variables nécessaires (base de données, API, etc.).
 
-### `npm run build`
+Démarrage
+Front-end
+bash
+Copier le code
+cd frontend
+npm start
+Back-end
+bash
+Copier le code
+cd backend
+php artisan serve
+Les applications front-end et back-end devraient maintenant être accessibles via http://localhost:3000 pour le front-end et http://localhost:8000 pour le back-end.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Tests
+Tests de composants (Jest)
+Pour exécuter les tests de composants avec Jest, utilisez :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+bash
+Copier le code
+cd frontend
+npm run test
+Tests end-to-end (Cypress)
+Pour lancer Cypress en mode interactif :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+bash
+Copier le code
+cd frontend
+npx cypress open
+Pour exécuter Cypress en mode headless (sans interface graphique) :
 
-### `npm run eject`
+bash
+Copier le code
+npx cypress run
+Déploiement
+Le projet utilise une pipeline CI/CD pour le déploiement automatisé. Assurez-vous que toutes les configurations CI/CD sont correctement définies dans les workflows GitHub Actions ou dans un autre outil d'intégration continue que vous utilisez.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Contributions
+Les contributions sont les bienvenues ! Pour contribuer :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Fork le projet.
+Créez une branche pour votre fonctionnalité (git checkout -b feature/your-feature).
+Commitez vos modifications (git commit -m 'Add some feature').
+Poussez vers la branche (git push origin feature/your-feature).
+Ouvrez une Pull Request.
+Licence
+Ce projet est sous licence libre classique. Vous êtes libre de l'utiliser, le modifier, et le distribuer sous les conditions de cette licence.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contact
+Pour toute question ou support, vous pouvez contacter Hamdane KHIARI.
