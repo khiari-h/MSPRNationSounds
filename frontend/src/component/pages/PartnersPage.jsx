@@ -4,6 +4,7 @@ import PartnersPageTemplate from '../templates/PartnersPageTemplate';
 import Text from '../atoms/Text';
 import PartnerCard from '../molecules/PartnersCard';
 import Button from '../atoms/Button';
+import { fetchWithCache } from '../../utils/cacheUtils'; // Importation de la fonction cache
 
 const PartnersPage = () => {
   const [partners, setPartners] = useState([]);
@@ -17,8 +18,7 @@ const PartnersPage = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response = await axios.get('/api/wordpress/partners');
-        const partnersData = response.data;
+        const partnersData = await fetchWithCache('partners', '/api/wordpress/partners', 3600);
 
         if (partnersData.length === 0) {
           setError('Aucun partenaire trouvé.');
@@ -34,9 +34,8 @@ const PartnersPage = () => {
                 if (cachedLogo) {
                   return { ...partner, acf: { ...partner.acf, logoUrl: cachedLogo } };
                 }
-                const logoResponse = await axios.get(`/api/wordpress/media/${partner.acf.logo}`);
-                localStorage.setItem(`logo_${partner.acf.logo}`, logoResponse.data.source_url);
-                return { ...partner, acf: { ...partner.acf, logoUrl: logoResponse.data.source_url } };
+                const logoData = await fetchWithCache(`logo_${partner.acf.logo}`, `/api/wordpress/media/${partner.acf.logo}`, 3600);
+                return { ...partner, acf: { ...partner.acf, logoUrl: logoData.source_url } };
               } catch (logoError) {
                 console.error("Erreur lors de la récupération du logo!", logoError);
                 return { ...partner, acf: { ...partner.acf, logoUrl: '' } };

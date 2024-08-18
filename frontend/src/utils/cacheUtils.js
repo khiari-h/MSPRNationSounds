@@ -1,3 +1,5 @@
+import axios from "../config/axiosConfig";
+
 export const fetchWithCache = async (key, url, cacheDuration = 3600) => {
     const cachedData = localStorage.getItem(key);
     const cachedTime = localStorage.getItem(`${key}_time`);

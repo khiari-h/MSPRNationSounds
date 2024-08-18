@@ -4,16 +4,16 @@ import InfoCard from '../../molecules/InfoCard';
 import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
+import { fetchWithCache } from '../../../utils/cacheUtils';  // Importer la fonction de cache
 
 const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
   const [concerts, setConcerts] = useState([]);
   const [filters, setFilters] = useState({ date: '', heuredebut: '', lieu: '', type: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const [concertsPerPage, setConcertsPerPage] = useState(6);
-  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
+  const [loading, setLoading] = useState(true); 
   const concertsListRef = useRef(null);
 
-  // Fonction de formatage de la date
   const formatDate = (dateStr) => {
     if (!dateStr) return dateStr;
     const year = dateStr.slice(0, 4);
@@ -22,35 +22,33 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
     return `${day}/${month}/${year}`;
   };
 
-  // Fonction de formatage de l'heure
   const formatTime = (timeStr) => {
     if (!timeStr) return timeStr;
     const [hour, minute] = timeStr.split(':');
     return `${hour}:${minute}`;
   };
 
-  // Ajustement du nombre de concerts par page en fonction de la taille de l'écran
   useEffect(() => {
     const handleResize = () => {
       setConcertsPerPage(window.innerWidth < 768 ? 3 : 6);
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Appel initial pour définir la valeur
+    handleResize(); 
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Récupération des concerts depuis l'API
   useEffect(() => {
     const fetchConcerts = async () => {
       try {
-        const response = await axios.get(apiEndpoint);
-        const concertsData = await Promise.all(
-          response.data.map(async (concert) => {
+        const concertsData = await fetchWithCache('concerts', apiEndpoint, 3600);
+
+        const formattedConcerts = await Promise.all(
+          concertsData.map(async (concert) => {
             if (concert.acf.photo) {
-              const mediaResponse = await axios.get(`/api/wordpress/media/${concert.acf.photo}`);
-              concert.acf.photo = mediaResponse.data.source_url;
+              const logoData = await fetchWithCache(`logo_${concert.acf.photo}`, `/api/wordpress/media/${concert.acf.photo}`, 3600);
+              concert.acf.photo = logoData.source_url;
             }
             concert.acf.date = formatDate(concert.acf.date);
             concert.acf.heuredebut = formatTime(concert.acf.heuredebut);
@@ -59,23 +57,21 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
           })
         );
 
-        setConcerts(concertsData);
+        setConcerts(formattedConcerts);
       } catch (error) {
         console.error("Erreur lors de la récupération des concerts!", error);
       } finally {
-        setLoading(false); // Fin du chargement
+        setLoading(false);
       }
     };
 
     fetchConcerts();
   }, [apiEndpoint]);
 
-  // Gestion des changements de filtres
   const handleFilterChange = (key, value) => {
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
 
-  // Application des filtres
   const filteredConcerts = concerts.filter((concert) => {
     return (
       (filters.date === '' || concert.acf.date === filters.date) &&
@@ -94,7 +90,7 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
     <section className="container mx-auto py-8" aria-labelledby="concerts-programming-heading">
       <Text content="Programmation des Concerts" type="h1" className="text-concert-title text-center" id="concerts-programming-heading" />
       {loading ? (
-        <p>Chargement des concerts...</p> // Afficher un message de chargement pendant le fetch
+        <p>Chargement des concerts...</p> 
       ) : (
         <>
           {filteredConcerts.length === 0 ? (

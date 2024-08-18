@@ -4,13 +4,14 @@ import InfoCard from '../../molecules/InfoCard';
 import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
+import { fetchWithCache } from '../../../utils/cacheUtils';  // Importer la fonction de cache
 
 const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
   const [artistMeetings, setArtistMeetings] = useState([]);
   const [filters, setFilters] = useState({ date: '', heuredebut: '', lieu: '', type: '' });
   const [currentPage, setCurrentPage] = useState(1);
   const [meetingsPerPage, setMeetingsPerPage] = useState(6);
-  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
+  const [loading, setLoading] = useState(true);
 
   // Fonction pour formater la date
   const formatDate = (dateStr) => {
@@ -28,7 +29,6 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
     return `${hour}:${minute}`;
   };
 
-  // Ajustement du nombre de rencontres par page en fonction de la taille de l'écran
   useEffect(() => {
     const handleResize = () => {
       setMeetingsPerPage(window.innerWidth < 768 ? 3 : 6);
@@ -40,16 +40,16 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Récupération des rencontres avec les artistes depuis l'API
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const response = await axios.get(apiEndpoint);
-        const meetingsData = await Promise.all(
-          response.data.map(async (meeting) => {
+        const meetingsData = await fetchWithCache('artistMeetings', apiEndpoint, 3600);  // Utilisation du cache
+
+        const formattedMeetings = await Promise.all(
+          meetingsData.map(async (meeting) => {
             if (meeting.acf.photo) {
-              const mediaResponse = await axios.get(`/api/wordpress/media/${meeting.acf.photo}`);
-              meeting.acf.photo = mediaResponse.data.source_url;
+              const logoData = await fetchWithCache(`logo_${meeting.acf.photo}`, `/api/wordpress/media/${meeting.acf.photo}`, 3600);
+              meeting.acf.photo = logoData.source_url;
             }
             meeting.acf.date = formatDate(meeting.acf.date);
             meeting.acf.heuredebut = formatTime(meeting.acf.heuredebut);
@@ -58,23 +58,21 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
           })
         );
 
-        setArtistMeetings(meetingsData);
+        setArtistMeetings(formattedMeetings);
       } catch (error) {
         console.error("Erreur lors de la récupération des rencontres!", error);
       } finally {
-        setLoading(false); // Fin du chargement
+        setLoading(false);
       }
     };
 
     fetchMeetings();
   }, [apiEndpoint]);
 
-  // Gestion des changements de filtres
   const handleFilterChange = (key, value) => {
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
 
-  // Application des filtres
   const filteredMeetings = artistMeetings.filter((meeting) => {
     return (
       (filters.date === '' || meeting.acf.date === filters.date) &&
@@ -93,7 +91,7 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
     <section className="container mx-auto py-8" aria-labelledby="artist-meetings-heading">
       <Text content="Rencontres avec les Artistes" type="h1" className="text-concert-title text-center" id="artist-meetings-heading" />
       {loading ? (
-        <p>Chargement des rencontres...</p> // Afficher un message de chargement pendant le fetch
+        <p>Chargement des rencontres...</p>
       ) : (
         <>
           {filteredMeetings.length === 0 ? (
