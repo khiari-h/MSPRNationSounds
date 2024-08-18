@@ -32,6 +32,7 @@ const RegistrationForm = () => {
             : '/api/wordpress/artist-meeting-names';
           const response = await axiosConfig.get(endpoint);
           if (Array.isArray(response.data)) {
+            console.log(response.data); // Affiche les événements dans la console
             setEvents(response.data);
           } else {
             setEvents([]);
@@ -48,27 +49,35 @@ const RegistrationForm = () => {
     fetchEvents();
   }, [formData.type]);
   
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await axiosConfig.post('/api/register', {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        event_id: formData.eventId, 
-      });
-      setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
-      setErrorMessage('');
+        console.log("Submitting data:", {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            event_id: formData.eventId
+        });
+        const response = await axiosConfig.post('/api/register', {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            event_id: formData.eventId, 
+        });
+        setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
+        setErrorMessage('');
     } catch (error) {
-      console.error('Erreur lors de l\'inscription :', error.response); // Affiche plus de détails sur l'erreur
-      setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
-      setSuccessMessage('');
+        console.error('Erreur lors de l\'inscription :', error.response.data);
+        setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
+        setSuccessMessage('');
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
-  };
+};
+
   
 
   return (

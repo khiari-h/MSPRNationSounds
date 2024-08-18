@@ -18,7 +18,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: my_database
+          MYSQL_DATABASE: nationsoundsdevelopment
           MYSQL_USER: root
           MYSQL_PASSWORD: ""
         ports:

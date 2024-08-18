@@ -10,7 +10,13 @@ class RegistrationController extends Controller
     // 1. Méthode pour inscrire un participant à un événement
     public function registerParticipant(Request $request)
     {
-
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:participants,email',
+            'event_id' => 'required|string', 
+        ]);
+        
         // Créer ou trouver le participant sur base de l'email
         $participant = Participant::firstOrCreate(
             ['email' => $request->email],
