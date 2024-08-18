@@ -104,7 +104,6 @@ const PartnersPage = () => {
           onClick={() => handleCategoryChange(category)}
           isSelected={selectedCategory === category}
           aria-pressed={selectedCategory === category}
-          className="w-full sm:w-auto sm:text-sm sm:py-1 sm:px-2 md:py-2 md:px-4 text-center"
         />
       ))}
     </div>
