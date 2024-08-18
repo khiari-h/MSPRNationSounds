@@ -13,7 +13,9 @@ const Header = () => {
     <header className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white shadow-md relative">
       <div className="container mx-auto flex justify-between items-center py-4 px-4 sm:px-8 relative">
         <div className="flex items-center transform transition duration-500 hover:scale-110">
-          <Image src="logo.png" alt="Festival Logo" className="h-12 w-auto" />
+        <a href="/">
+  <img src="logo.png" alt="Festival Logo" className="h-12 w-auto" />
+</a>
         </div>
         <button
           className="block md:hidden"
