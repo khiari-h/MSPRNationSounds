@@ -57,6 +57,8 @@ bash
 Copier le code
 cd frontend
 npm install
+
+
 Pour le back-end (Laravel) :
 
 bash
