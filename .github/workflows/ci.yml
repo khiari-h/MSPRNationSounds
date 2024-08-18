@@ -31,11 +31,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
+    - name: Lister les fichiers pour vérification
+      run: ls -la
+      working-directory: ./
 
     - name: Copier le fichier .env.ci en .env
       run: cp .env.ci ./backend/.env
