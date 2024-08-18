@@ -18,7 +18,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: nationsoundstest  
+          MYSQL_DATABASE: nationsoundstest  # On utilisera la base de données de test pour CI
         ports:
           - 3307:3306
         options: >-
@@ -37,22 +37,21 @@ jobs:
         php-version: '8.2'
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
-    - name: Créer ou utiliser le fichier .env
+    - name: Créer le fichier .env
       run: |
-        if [ ! -f ./backend/.env ]; then
-          echo "APP_NAME=Laravel" > ./backend/.env
-          echo "APP_ENV=testing" >> ./backend/.env
-          echo "APP_KEY=base64:vhFORI6EMx+FuPHItMDGvVCcoASMtT1AYnGt89LXkXo=" >> ./backend/.env
-          echo "APP_DEBUG=true" >> ./backend/.env
-          echo "APP_URL=http://localhost" >> ./backend/.env
-          echo "DB_CONNECTION=mysql" >> ./backend/.env
-          echo "DB_HOST=mysql" >> ./backend/.env
-          echo "DB_PORT=3306" >> ./backend/.env
-          echo "DB_DATABASE=nationsoundstest" >> ./backend/.env
-          echo "DB_USERNAME=root" >> ./backend/.env
-          echo "DB_PASSWORD=" >> ./backend/.env
-        fi
-      working-directory: ./backend
+        mkdir -p ./backend
+        echo "APP_NAME=Laravel" > ./backend/.env
+        echo "APP_ENV=testing" >> ./backend/.env
+        echo "APP_KEY=base64:vhFORI6EMx+FuPHItMDGvVCcoASMtT1AYnGt89LXkXo=" >> ./backend/.env
+        echo "APP_DEBUG=true" >> ./backend/.env
+        echo "APP_URL=http://localhost" >> ./backend/.env
+        echo "DB_CONNECTION=mysql" >> ./backend/.env
+        echo "DB_HOST=mysql" >> ./backend/.env
+        echo "DB_PORT=3306" >> ./backend/.env
+        echo "DB_DATABASE=nationsoundstest" >> ./backend/.env
+        echo "DB_USERNAME=root" >> ./backend/.env
+        echo "DB_PASSWORD=" >> ./backend/.env
+      working-directory: ./
 
     - name: Attendre que MySQL soit prêt
       run: sleep 20
