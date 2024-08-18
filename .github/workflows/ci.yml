@@ -37,6 +37,9 @@ jobs:
         php-version: '8.2'
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
+    - name: Vérifier l'existence du fichier .env
+      run: ls -la ./backend/.env
+
     - name: Attendre que MySQL soit prêt
       run: sleep 20  # Attendre 20 secondes pour que MySQL soit prêt
 
