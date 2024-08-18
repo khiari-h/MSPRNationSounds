@@ -18,7 +18,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: nationsoundstest  # On utilisera la base de données de test pour CI
+          MYSQL_DATABASE: nationsoundstest
         ports:
           - 3307:3306
         options: >-
@@ -54,7 +54,7 @@ jobs:
       working-directory: ./
 
     - name: Attendre que MySQL soit prêt
-      run: sleep 20
+      run: sleep 30  # Augmentez le délai à 30 secondes
 
     - name: Installer les dépendances Composer
       run: composer install --prefer-dist --no-progress
