@@ -18,7 +18,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: nationsoundstest
+          MYSQL_DATABASE: nationsoundsdevelopment
         ports:
           - 3307:3306  # Modification du mappage de port pour éviter les conflits
         options: >-
