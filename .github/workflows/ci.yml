@@ -1,4 +1,4 @@
-name: Laravel & React CI/CD Pipeline
+name: CI/CD for React and Laravel
 
 on:
   push:
@@ -9,18 +9,36 @@ on:
       - main
 
 jobs:
-  build:
-
+  build-frontend:
     runs-on: ubuntu-latest
 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./client
+
+    - name: Run tests
+      run: npm test
+      working-directory: ./client
+
+  build-backend:
+    runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: nationsoundstest
+          MYSQL_DATABASE: test
         ports:
-          - 3307:3306
+          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
@@ -29,34 +47,29 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
-    - name: Lister les fichiers pour vérification
-      run: ls -la ./backend
-      working-directory: ./
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
 
-    - name: Copier le fichier .env.ci en .env
-      run: cp ./backend/.env.ci ./backend/.env
-      working-directory: ./
+    - name: Install Composer dependencies
+      run: composer install
+      working-directory: ./server
 
-    - name: Attendre que MySQL soit prêt
-      run: sleep 30  # Attendre 30 secondes pour que MySQL soit prêt
+    - name: Set up .env file
+      run: cp .env.example .env
+      working-directory: ./server
 
-    - name: Vérifier la disponibilité de MySQL
-      run: mysqladmin -h mysql -u root ping
+    - name: Generate application key
+      run: php artisan key:generate
+      working-directory: ./server
 
-    - name: Installer les dépendances Composer
-      run: composer install --prefer-dist --no-progress
-      working-directory: ./backend
+    - name: Run migrations
+      run: php artisan migrate
+      working-directory: ./server
 
-    - name: Configurer la base de données
-      run: php artisan key:generate && php artisan migrate --no-interaction --force
-      working-directory: ./backend
-
-    - name: Exécuter les tests unitaires Laravel
+    - name: Run tests
       run: php artisan test
-      working-directory: ./backend
-
-    - name: Afficher les logs du conteneur MySQL
-      if: failure()
-      run: docker logs $(docker ps -q --filter "ancestor=mysql:5.7")
+      working-directory: ./server
