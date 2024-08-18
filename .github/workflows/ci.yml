@@ -20,7 +20,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: nationsoundsdevelopment
         ports:
-          - 3307:3306  # Modification du mappage de port pour éviter les conflits
+          - 3307:3306
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
@@ -29,68 +29,49 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Mise à jour vers la dernière version stable
+      uses: actions/checkout@v4
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'  # Assurez-vous d'utiliser PHP 8.2
+        php-version: '8.2'
         extensions: mbstring, xml, bcmath, curl, dom, fileinfo, json, mysql, pdo, tokenizer
 
-    - name: Configurer le fichier .env pour les tests
-      run: |
-        cp backend/.env.testing backend/.env
+    - name: Copier .env en .env
+      run: cp .env.example .env  # Correction de la commande pour copier le bon fichier
 
     - name: Attendre que MySQL soit prêt
-      run: sleep 15  # Attendre 15 secondes
+      run: sleep 20  # Attendre 20 secondes pour que MySQL soit prêt
 
     - name: Installer les dépendances Composer
-      run: |
-        cd backend  # Naviguer vers le répertoire contenant le fichier composer.json
-        composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress
 
     - name: Configurer la base de données
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        php artisan key:generate
-        php artisan migrate --no-interaction --force
+      run: php artisan key:generate && php artisan migrate --no-interaction --force
 
     - name: Exécuter les tests unitaires Laravel
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        php artisan test
+      run: php artisan test
 
     - name: Configurer Node.js
-      uses: actions/setup-node@v3  # Mise à jour vers la dernière version stable
+      uses: actions/setup-node@v3
       with:
         node-version: '20.11.1'
 
     - name: Installer les dépendances Node.js
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        npm install
+      run: npm install
 
     - name: Exécuter les tests React
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        npm test -- --watchAll=false
+      run: npm test -- --watchAll=false
 
     - name: Compiler l'application React
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        npm run build
+      run: npm run build
 
     - name: Exécuter les tests de performance Lighthouse
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        npx lhci autorun
+      run: npx lhci autorun
 
     - name: Exécuter l'analyse de sécurité
-      run: |
-        cd backend  # Naviguer vers le répertoire backend
-        composer require --dev enlightn/security-checker
-        php artisan security:check
+      run: composer require --dev enlightn/security-checker && php artisan security:check
 
-    - name: Obtenir les logs du conteneur MySQL
+    - name: Afficher les logs du conteneur MySQL
       if: failure()
       run: docker logs $(docker ps -q --filter "ancestor=mysql:5.7")
