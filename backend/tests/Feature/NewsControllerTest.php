@@ -26,25 +26,23 @@ class NewsControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_show_a_specific_news_item()
-    {
-        // Crée une seule actualité dans la base de données
-        $news = News::factory()->create();
+/** @test */
+public function it_can_show_a_specific_news_item()
+{
+    $news = News::factory()->create();
 
-        // Effectue une requête GET sur l'endpoint /api/news/{id}
-        $response = $this->getJson("/api/news/{$news->id}");
+    $response = $this->getJson("/api/news/{$news->id}");
 
-        // Vérifie que la réponse a un statut 200 (succès)
-        // et que les données retournées correspondent à celles créées
-        $response->assertStatus(200)
-                 ->assertJson([
-                     'id' => $news->id,
-                     'title' => $news->title,
-                     'description' => $news->description,
-                     'category' => $news->category,
-                     'image' => $news->image,
-                 ]);
-    }
+    $response->assertStatus(200)
+             ->assertJson([
+                 'id' => $news->id,
+                 'title' => $news->title,
+                 'description' => $news->description,
+                 'category' => $news->category,
+                 'importance' => $news->importance,  // Ajoutez le champ importance ici
+             ]);
+}
+
 
     /** @test */
     public function it_returns_404_if_news_item_not_found()

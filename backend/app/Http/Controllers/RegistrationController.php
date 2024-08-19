@@ -10,25 +10,28 @@ class RegistrationController extends Controller
     // 1. Méthode pour inscrire un participant à un événement
     public function registerParticipant(Request $request)
     {
+        // Valider les autres champs
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:participants,email',
-            'event_id' => 'required|string', 
+            'event_id' => 'required|integer', // Assurez-vous que l'event_id est bien un entier
         ]);
-        
-        // Créer ou trouver le participant sur base de l'email
-        $participant = Participant::firstOrCreate(
-            ['email' => $request->email],
-            [
+
+        // Vérifier si un participant avec cet email existe déjà
+        $participant = Participant::where('email', $request->email)->first();
+
+        if ($participant) {
+            // Vérifier si le participant est déjà inscrit à cet événement
+            if ($participant->events()->where('event_id', $request->event_id)->exists()) {
+                return response()->json(['message' => 'Participant déjà inscrit à cet événement.'], 409);
+            }
+        } else {
+            // Créer un nouveau participant s'il n'existe pas
+            $participant = Participant::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-            ]
-        );
-
-        // Vérifier si le participant est déjà inscrit à cet événement
-        if ($participant->events()->where('event_id', $request->event_id)->exists()) {
-            return response()->json(['message' => 'Participant déjà inscrit à cet événement.'], 409);
+                'email' => $request->email,
+            ]);
         }
 
         // Inscrire le participant à l'événement
@@ -36,6 +39,5 @@ class RegistrationController extends Controller
 
         return response()->json(['message' => 'Inscription réussie !'], 201);
     }
-
-
 }
+
