@@ -4,7 +4,7 @@ import PartnersPageTemplate from '../templates/PartnersPageTemplate';
 import Text from '../atoms/Text';
 import PartnerCard from '../molecules/PartnersCard';
 import Button from '../atoms/Button';
-import { fetchWithCache } from '../../utils/cacheUtils'; // Importation de la fonction cache
+import { fetchWithCache } from '../../utils/cacheUtils'; 
 
 const PartnersPage = () => {
   const [partners, setPartners] = useState([]);

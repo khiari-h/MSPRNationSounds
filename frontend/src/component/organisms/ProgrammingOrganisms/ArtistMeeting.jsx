@@ -4,7 +4,7 @@ import InfoCard from '../../molecules/InfoCard';
 import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
-import { fetchWithCache } from '../../../utils/cacheUtils';  // Importer la fonction de cache
+import { fetchWithCache } from '../../../utils/cacheUtils'; 
 
 const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
   const [artistMeetings, setArtistMeetings] = useState([]);
