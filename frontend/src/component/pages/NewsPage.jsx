@@ -3,6 +3,7 @@ import axios from '../../config/axiosConfig';
 import NewsPageTemplate from '../templates/NewsPageTemplate';
 import NewsCard from '../molecules/NewsCard';
 import Button from '../atoms/Button';
+import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemsPerPage';
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
@@ -11,20 +12,8 @@ const NewsPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(6); // Initial state
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      if (window.innerWidth < 768) {
-        setItemsPerPage(3); // Mobile
-      } else {
-        setItemsPerPage(6); // Tablet and Desktop
-      }
-    };
-
-    window.addEventListener('resize', updateItemsPerPage);
-    updateItemsPerPage(); // Exécution initiale pour définir le nombre d'éléments par page
-
-    return () => window.removeEventListener('resize', updateItemsPerPage);
-  }, []);
+  // Utiliser le hook pour ajuster le nombre d'éléments par page en fonction de la taille de l'écran
+  useResponsiveItemsPerPage(setItemsPerPage);
 
   useEffect(() => {
     axios.get('/api/news')
@@ -45,7 +34,6 @@ const NewsPage = () => {
 
   const filterButtons = (
     <div className="flex flex-wrap justify-center mb-6">
-
       {uniqueCategories.map((category) => (
         <Button
           key={category}
