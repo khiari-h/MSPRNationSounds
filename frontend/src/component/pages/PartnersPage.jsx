@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../config/axiosConfig';
 import PartnersPageTemplate from '../templates/PartnersPageTemplate';
 import Text from '../atoms/Text';
 import PartnerCard from '../molecules/PartnersCard';

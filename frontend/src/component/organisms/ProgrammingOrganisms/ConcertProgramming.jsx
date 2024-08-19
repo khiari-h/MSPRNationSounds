@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from '../../../config/axiosConfig';
 import InfoCard from '../../molecules/InfoCard';
 import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';

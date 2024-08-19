@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../config/axiosConfig';
 import ConcertsDetailsPageTemplate from '../templates/ConcertsDetailsPageTemplate';
 import InfoCard from '../molecules/InfoCard';
 import Filter from '../atoms/Filter';
