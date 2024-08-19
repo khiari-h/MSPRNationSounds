@@ -1,7 +1,7 @@
 import React, { useState, Suspense, lazy } from 'react';
 import ProgrammingPageTemplate from '../templates/ProgrammingPageTemplate';
 
-// Importer les composants dynamiquement
+
 const ConcertsProgramming = lazy(() => import('../organisms/ProgrammingOrganisms/ConcertProgramming'));
 const ArtistMeeting = lazy(() => import('../organisms/ProgrammingOrganisms/ArtistMeeting'));
 

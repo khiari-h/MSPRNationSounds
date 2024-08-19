@@ -4,16 +4,19 @@ import PartnersPageTemplate from '../templates/PartnersPageTemplate';
 import Text from '../atoms/Text';
 import PartnerCard from '../molecules/PartnersCard';
 import Button from '../atoms/Button';
-import { fetchWithCache } from '../../utils/cacheUtils'; 
+import { fetchWithCache } from '../../utils/cacheUtils';
+import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemPerPage';
 
 const PartnersPage = () => {
   const [partners, setPartners] = useState([]);
   const [filteredPartners, setFilteredPartners] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [currentPage, setCurrentPage] = useState(1);
-  const [partnersPerPage, setPartnersPerPage] = useState(6);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  // Use the custom hook to determine the number of items per page
+  const partnersPerPage = useResponsiveItemsPerPage(6, 3, 6);
 
   useEffect(() => {
     const fetchPartners = async () => {
@@ -30,10 +33,6 @@ const PartnersPage = () => {
           partnersData.map(async (partner) => {
             if (partner.acf.logo) {
               try {
-                const cachedLogo = localStorage.getItem(`logo_${partner.acf.logo}`);
-                if (cachedLogo) {
-                  return { ...partner, acf: { ...partner.acf, logoUrl: cachedLogo } };
-                }
                 const logoData = await fetchWithCache(`logo_${partner.acf.logo}`, `/api/wordpress/media/${partner.acf.logo}`, 3600);
                 return { ...partner, acf: { ...partner.acf, logoUrl: logoData.source_url } };
               } catch (logoError) {
@@ -44,7 +43,7 @@ const PartnersPage = () => {
             return { ...partner, acf: { ...partner.acf, logoUrl: '' } };
           })
         );
-        
+
         setPartners(partnersWithLogos);
         setFilteredPartners(partnersWithLogos);
         setLoading(false);
@@ -58,22 +57,7 @@ const PartnersPage = () => {
     fetchPartners();
   }, []);
 
-  useEffect(() => {
-    const updatePartnersPerPage = () => {
-      if (window.innerWidth < 768) {
-        setPartnersPerPage(3); // Mobile: 3 partenaires par page
-      } else {
-        setPartnersPerPage(6); // Desktop & Tablet: 6 partenaires par page
-      }
-    };
-
-    updatePartnersPerPage(); // Mise à jour lors du premier rendu
-    window.addEventListener('resize', updatePartnersPerPage);
-
-    return () => window.removeEventListener('resize', updatePartnersPerPage);
-  }, []);
-
-  const categories = ['Tous', ...new Set(partners.map(partner => partner.acf && partner.acf.categorie ? partner.acf.categorie : ''))];
+  const categories = ['Tous', ...new Set(partners.map(partner => partner.acf?.categorie || ''))];
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -81,7 +65,7 @@ const PartnersPage = () => {
     if (category === 'Tous') {
       setFilteredPartners(partners);
     } else {
-      setFilteredPartners(partners.filter(partner => partner.acf && partner.acf.categorie === category));
+      setFilteredPartners(partners.filter(partner => partner.acf?.categorie === category));
     }
   };
 
