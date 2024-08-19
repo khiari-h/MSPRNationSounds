@@ -5,7 +5,7 @@ import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
 import { fetchWithCache } from '../../../utils/cacheUtils'; 
-import {formatDate, formatTime } from '../../../utils/screenUtils'; 
+import {formatDate, formatTime } from '../../../utils/formatUtilis'; 
 import { useResponsiveItemsPerPage } from '../../../hooks/useResponsiveItemPerPage';
 
 const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {

@@ -4,7 +4,9 @@ import InfoCard from '../../molecules/InfoCard';
 import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
-import { fetchWithCache } from '../../../utils/cacheUtils';  // Importer la fonction de cache
+import { fetchWithCache } from '../../../utils/cacheUtils'; 
+import { formatDate, formatTime } from '../../../utils/formatUtilis';
+import { useResponsiveItemsPerPage } from '../../../hooks/useResponsiveItemPerPage'; 
 
 const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
   const [concerts, setConcerts] = useState([]);
@@ -14,30 +16,8 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
   const [loading, setLoading] = useState(true); 
   const concertsListRef = useRef(null);
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return dateStr;
-    const year = dateStr.slice(0, 4);
-    const month = dateStr.slice(4, 6);
-    const day = dateStr.slice(6, 8);
-    return `${day}/${month}/${year}`;
-  };
-
-  const formatTime = (timeStr) => {
-    if (!timeStr) return timeStr;
-    const [hour, minute] = timeStr.split(':');
-    return `${hour}:${minute}`;
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setConcertsPerPage(window.innerWidth < 768 ? 3 : 6);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize(); 
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Utilisation du hook pour ajuster le nombre de concerts par page
+  useResponsiveItemsPerPage(setConcertsPerPage);
 
   useEffect(() => {
     const fetchConcerts = async () => {
