@@ -3,7 +3,7 @@ import axios from '../../config/axiosConfig';
 import NewsPageTemplate from '../templates/NewsPageTemplate';
 import NewsCard from '../molecules/NewsCard';
 import Button from '../atoms/Button';
-import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemsPerPage';
+import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemPerPage';
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
