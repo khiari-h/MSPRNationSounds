@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Mockery;
-use App\Services\WordpressService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
 
 class WordpressControllerTest extends TestCase
 {
@@ -13,13 +12,13 @@ class WordpressControllerTest extends TestCase
 
     protected $wordpressServiceMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        // Mock du service WordpressService
-        $this->wordpressServiceMock = Mockery::mock(WordpressService::class);
-        $this->app->instance(WordpressService::class, $this->wordpressServiceMock);
+        // Création du mock pour le service WordpressService
+        $this->wordpressServiceMock = Mockery::mock(\App\Services\WordpressService::class);
+        $this->app->instance(\App\Services\WordpressService::class, $this->wordpressServiceMock);
     }
 
     /** @test */
@@ -30,22 +29,24 @@ class WordpressControllerTest extends TestCase
             ->once()
             ->andReturn(['poi1', 'poi2']);
 
-        $response = $this->getJson('/api/wordpress/points-of-interest');
+        $response = $this->getJson('/api/wordpress/points-interets');
 
         $response->assertStatus(200)
                  ->assertJson(['poi1', 'poi2']);
     }
 
     /** @test */
-    public function it_returns_error_if_getting_points_of_interest_fails()
+    public function it_returns_an_error_if_getting_points_of_interest_fails()
     {
+        cache()->flush(); // Invalide le cache avant de commencer le test
+    
         $this->wordpressServiceMock
             ->shouldReceive('getPointsOfInterest')
             ->once()
             ->andThrow(new \Exception('Something went wrong'));
-
-        $response = $this->getJson('/api/wordpress/points-of-interest');
-
+    
+        $response = $this->getJson('/api/wordpress/points-interets');
+    
         $response->assertStatus(500)
                  ->assertJson(['error' => 'Impossible de récupérer les points d\'intérêt']);
     }
@@ -58,21 +59,23 @@ class WordpressControllerTest extends TestCase
             ->once()
             ->andReturn(['meeting1', 'meeting2']);
 
-        $response = $this->getJson('/api/wordpress/artists-meetings');
+        $response = $this->getJson('/api/wordpress/artists_meetings');
 
         $response->assertStatus(200)
                  ->assertJson(['meeting1', 'meeting2']);
     }
 
     /** @test */
-    public function it_returns_error_if_getting_artists_meetings_fails()
+    public function it_returns_an_error_if_getting_artists_meetings_fails()
     {
+        cache()->flush();
+
         $this->wordpressServiceMock
             ->shouldReceive('getArtistsMeetings')
             ->once()
             ->andThrow(new \Exception('Something went wrong'));
 
-        $response = $this->getJson('/api/wordpress/artists-meetings');
+        $response = $this->getJson('/api/wordpress/artists_meetings');
 
         $response->assertStatus(500)
                  ->assertJson(['error' => 'Impossible de récupérer les rencontres avec les artistes']);
@@ -93,8 +96,10 @@ class WordpressControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_error_if_getting_concerts_fails()
+    public function it_returns_an_error_if_getting_concerts_fails()
     {
+        cache()->flush();
+
         $this->wordpressServiceMock
             ->shouldReceive('getConcerts')
             ->once()
@@ -121,8 +126,10 @@ class WordpressControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_error_if_getting_partners_fails()
+    public function it_returns_an_error_if_getting_partners_fails()
     {
+        cache()->flush();
+
         $this->wordpressServiceMock
             ->shouldReceive('getPartnersWithMedia')
             ->once()
@@ -138,23 +145,24 @@ class WordpressControllerTest extends TestCase
     public function it_can_get_media_by_id()
     {
         $mediaId = 123;
-        $mediaData = ['id' => $mediaId, 'url' => 'https://example.com/media.jpg'];
 
         $this->wordpressServiceMock
             ->shouldReceive('getMedia')
             ->with($mediaId)
             ->once()
-            ->andReturn($mediaData);
+            ->andReturn(['media' => 'mediaData']);
 
         $response = $this->getJson("/api/wordpress/media/{$mediaId}");
 
         $response->assertStatus(200)
-                 ->assertJson($mediaData);
+                 ->assertJson(['media' => 'mediaData']);
     }
 
     /** @test */
-    public function it_returns_error_if_getting_media_fails()
+    public function it_returns_an_error_if_getting_media_fails()
     {
+        cache()->flush();
+
         $mediaId = 123;
 
         $this->wordpressServiceMock
@@ -172,7 +180,10 @@ class WordpressControllerTest extends TestCase
     /** @test */
     public function it_can_get_programming_homepage()
     {
-        $data = ['section1' => 'data1', 'section2' => 'data2'];
+        $data = [
+            'concert' => 'concertData',
+            'artists_meetings' => ['meeting1', 'meeting2']
+        ];
 
         $this->wordpressServiceMock
             ->shouldReceive('getProgrammingHomepageData')
@@ -186,8 +197,10 @@ class WordpressControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_error_if_getting_programming_homepage_fails()
+    public function it_returns_an_error_if_getting_programming_homepage_fails()
     {
+        cache()->flush();
+
         $this->wordpressServiceMock
             ->shouldReceive('getProgrammingHomepageData')
             ->once()
@@ -202,22 +215,22 @@ class WordpressControllerTest extends TestCase
     /** @test */
     public function it_can_get_concerts_homepage()
     {
-        $concerts = ['concert1', 'concert2'];
-
         $this->wordpressServiceMock
             ->shouldReceive('getConcertsHomepage')
             ->once()
-            ->andReturn($concerts);
+            ->andReturn(['concert1', 'concert2']);
 
         $response = $this->getJson('/api/wordpress/concerts-homepage');
 
         $response->assertStatus(200)
-                 ->assertJson($concerts);
+                 ->assertJson(['concert1', 'concert2']);
     }
 
     /** @test */
-    public function it_returns_error_if_getting_concerts_homepage_fails()
+    public function it_returns_an_error_if_getting_concerts_homepage_fails()
     {
+        cache()->flush();
+        
         $this->wordpressServiceMock
             ->shouldReceive('getConcertsHomepage')
             ->once()
@@ -232,44 +245,72 @@ class WordpressControllerTest extends TestCase
     /** @test */
     public function it_can_get_concert_names()
     {
-        $concerts = [
-            ['id' => 1, 'acf' => ['nom' => 'Concert 1']],
-            ['id' => 2, 'acf' => ['nom' => 'Concert 2']],
-        ];
-
         $this->wordpressServiceMock
             ->shouldReceive('getConcerts')
             ->once()
-            ->andReturn($concerts);
+            ->andReturn([
+                ['id' => 1, 'acf' => ['nom' => 'Concert 1']],
+                ['id' => 2, 'acf' => ['nom' => 'Concert 2']],
+            ]);
 
         $response = $this->getJson('/api/wordpress/concert-names');
 
         $response->assertStatus(200)
                  ->assertJson([
-                     ['id' => 1, 'name' => 'Concert 1'],
-                     ['id' => 2, 'name' => 'Concert 2'],
+                    ['id' => 1, 'name' => 'Concert 1'],
+                    ['id' => 2, 'name' => 'Concert 2'],
                  ]);
+    }
+
+    /** @test */
+    public function it_returns_an_error_if_getting_concert_names_fails()
+    {
+        cache()->flush();
+
+        $this->wordpressServiceMock
+            ->shouldReceive('getConcerts')
+            ->once()
+            ->andThrow(new \Exception('Something went wrong'));
+
+        $response = $this->getJson('/api/wordpress/concert-names');
+
+        $response->assertStatus(500)
+                 ->assertJson(['error' => 'Impossible de récupérer les noms des concerts']);
     }
 
     /** @test */
     public function it_can_get_artist_meeting_names()
     {
-        $meetings = [
-            ['id' => 1, 'acf' => ['nom' => 'Artist Meeting 1']],
-            ['id' => 2, 'acf' => ['nom' => 'Artist Meeting 2']],
-        ];
-
         $this->wordpressServiceMock
             ->shouldReceive('getArtistsMeetings')
             ->once()
-            ->andReturn($meetings);
+            ->andReturn([
+                ['id' => 1, 'acf' => ['nom' => 'Meeting 1']],
+                ['id' => 2, 'acf' => ['nom' => 'Meeting 2']],
+            ]);
 
         $response = $this->getJson('/api/wordpress/artist-meeting-names');
 
         $response->assertStatus(200)
                  ->assertJson([
-                     ['id' => 1, 'name' => 'Artist Meeting 1'],
-                     ['id' => 2, 'name' => 'Artist Meeting 2'],
+                    ['id' => 1, 'name' => 'Meeting 1'],
+                    ['id' => 2, 'name' => 'Meeting 2'],
                  ]);
+    }
+
+    /** @test */
+    public function it_returns_an_error_if_getting_artist_meeting_names_fails()
+    {
+        cache()->flush();
+        
+        $this->wordpressServiceMock
+            ->shouldReceive('getArtistsMeetings')
+            ->once()
+            ->andThrow(new \Exception('Something went wrong'));
+
+        $response = $this->getJson('/api/wordpress/artist-meeting-names');
+
+        $response->assertStatus(500)
+                 ->assertJson(['error' => 'Impossible de récupérer les noms des rencontres avec les artistes']);
     }
 }

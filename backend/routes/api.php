@@ -11,10 +11,8 @@ Route::post('/newsletter', [NewsletterController::class, 'subscribe']);
 
 
 // Routes pour les ressources News 
-Route::resources([
-    'news' => NewsController::class,
-
-]);
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{id}', [NewsController::class, 'show']);
 
 // Routes pour les inscription aux concerts et recontres artistes
 
