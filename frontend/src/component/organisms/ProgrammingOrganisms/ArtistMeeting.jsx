@@ -5,6 +5,8 @@ import Text from '../../atoms/Text';
 import Filter from '../../atoms/Filter';
 import Button from '../../atoms/Button';
 import { fetchWithCache } from '../../../utils/cacheUtils'; 
+import {formatDate, formatTime } from '../../../utils/screenUtils'; 
+import { useResponsiveItemsPerPage } from '../../../hooks/useResponsiveItemPerPage';
 
 const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
   const [artistMeetings, setArtistMeetings] = useState([]);
@@ -13,37 +15,13 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
   const [meetingsPerPage, setMeetingsPerPage] = useState(6);
   const [loading, setLoading] = useState(true);
 
-  // Fonction pour formater la date
-  const formatDate = (dateStr) => {
-    if (!dateStr) return dateStr;
-    const year = dateStr.slice(0, 4);
-    const month = dateStr.slice(4, 6);
-    const day = dateStr.slice(6, 8);
-    return `${day}/${month}/${year}`;
-  };
-
-  // Fonction pour formater l'heure
-  const formatTime = (timeStr) => {
-    if (!timeStr) return timeStr;
-    const [hour, minute] = timeStr.split(':');
-    return `${hour}:${minute}`;
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setMeetingsPerPage(window.innerWidth < 768 ? 3 : 6);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Utilisation du hook pour ajuster le nombre de meetings par page
+  useResponsiveItemsPerPage(setMeetingsPerPage);
 
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
-        const meetingsData = await fetchWithCache('artistMeetings', apiEndpoint, 3600);  // Utilisation du cache
+        const meetingsData = await fetchWithCache('artistMeetings', apiEndpoint, 3600);
 
         const formattedMeetings = await Promise.all(
           meetingsData.map(async (meeting) => {
