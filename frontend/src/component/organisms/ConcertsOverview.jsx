@@ -3,12 +3,13 @@ import axios from '../../config/axiosConfig';
 import InfoCard from '../molecules/InfoCard';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
+import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay'; // Import the custom hook
 
 const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Concerts" }) => {
   const [concerts, setConcerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [displayCount, setDisplayCount] = useState(3); // Par défaut, affichez 3 concerts
+  const displayCount = useResponsiveDisplay(); // Use the custom hook
 
   useEffect(() => {
     const fetchConcerts = async () => {
@@ -16,7 +17,7 @@ const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Conce
         const response = await axios.get('/api/wordpress/concerts-homepage');
         const concertsData = response.data;
 
-        // Récupérer les photos pour chaque concert
+        // Fetch photos for each concert
         const concertsWithPhotos = await Promise.all(
           concertsData.map(async (concert) => {
             if (concert.acf.photo) {
@@ -36,23 +37,6 @@ const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Conce
     };
 
     fetchConcerts();
-  }, []);
-
-  useEffect(() => {
-    const updateDisplayCount = () => {
-      if (window.innerWidth < 768) {
-        setDisplayCount(1); // Mobile
-      } else if (window.innerWidth < 1024) {
-        setDisplayCount(2); // Tablette
-      } else {
-        setDisplayCount(3); // Desktop
-      }
-    };
-
-    window.addEventListener('resize', updateDisplayCount);
-    updateDisplayCount(); // Exécuter une fois pour définir le nombre initial
-
-    return () => window.removeEventListener('resize', updateDisplayCount);
   }, []);
 
   return (

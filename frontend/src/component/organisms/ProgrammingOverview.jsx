@@ -3,12 +3,13 @@ import axios from '../../config/axiosConfig';
 import InfoCard from '../molecules/InfoCard';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
+import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay'; // Import the custom hook
 
 const ProgrammingOverview = () => {
   const [data, setData] = useState({ concert: null, artistMeetings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [displayData, setDisplayData] = useState([]);
+  const displayCount = useResponsiveDisplay(); // Use the custom hook
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,24 +45,7 @@ const ProgrammingOverview = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const filterForMobile = () => {
-      if (window.innerWidth < 768) {
-        // Si on est en mobile, on choisit soit le concert, soit le premier meeting
-        const firstAvailable = data.concert ? [data.concert] : data.artistMeetings.slice(0, 1);
-        setDisplayData(firstAvailable);
-      } else {
-        // Pour les autres tailles d'écran, on garde tout
-        const combinedData = [data.concert, ...data.artistMeetings].filter(item => item !== null);
-        setDisplayData(combinedData);
-      }
-    };
-
-    filterForMobile();
-    window.addEventListener('resize', filterForMobile);
-
-    return () => window.removeEventListener('resize', filterForMobile);
-  }, [data]);
+  const filteredData = [data.concert, ...data.artistMeetings].filter(item => item !== null).slice(0, displayCount);
 
   return (
     <section className="container mx-auto py-8" aria-labelledby="programming-overview-heading">
@@ -69,8 +53,8 @@ const ProgrammingOverview = () => {
       {loading && <p>Chargement...</p>}
       {error && <p className="text-red-500">{error}</p>}
       {!loading && !error && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {displayData.map((item, index) => (
+        <div className={`grid grid-cols-1 ${displayCount === 2 ? 'md:grid-cols-2' : ''} ${displayCount === 3 ? 'lg:grid-cols-3' : ''} gap-6`}>
+          {filteredData.map((item, index) => (
             <InfoCard
               key={index}
               title={item.acf.nom}
