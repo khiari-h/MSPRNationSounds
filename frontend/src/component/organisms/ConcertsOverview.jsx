@@ -43,7 +43,7 @@ const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Conce
     <section className="container mx-auto py-8" aria-labelledby="concerts-overview-heading">
       <Text content={heading} type="h2" className="text-2xl font-bold mb-6 text-center" id="concerts-overview-heading" />
       {loading && <p>Chargement...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-error-red">{error}</p>}
       {!loading && !error && (
         <>
           <div className={`grid grid-cols-1 ${displayCount === 2 ? 'md:grid-cols-2' : ''} ${displayCount === 3 ? 'lg:grid-cols-3' : ''} gap-6`}>
@@ -61,7 +61,6 @@ const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Conce
               <Button
                 label="Voir Plus de Concerts"
                 href="/concerts"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                 aria-label="Voir tous les concerts"
               />
             </div>

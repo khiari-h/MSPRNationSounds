@@ -89,7 +89,7 @@ const ConcertsDetailsPage = () => {
           {loading ? (
             <p>Chargement des concerts...</p>
           ) : error ? (
-            <p className="text-red-500">{error}</p>
+            <p className="text-error-red">{error}</p>
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -109,6 +109,7 @@ const ConcertsDetailsPage = () => {
                   <Button 
                     key={index + 1}
                     onClick={() => setCurrentPage(index + 1)}
+                    isSelected={currentPage === index + 1}
                     className="mx-1"
                     label={String(index + 1)}
                   />

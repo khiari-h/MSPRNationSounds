@@ -94,7 +94,7 @@ const RegistrationForm = () => {
         value={formData.firstName}
         onChange={handleChange}
         required
-        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
       />
       <input
         type="text"
@@ -104,7 +104,7 @@ const RegistrationForm = () => {
         value={formData.lastName}
         onChange={handleChange}
         required
-        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
       />
       <input
         type="email"
@@ -114,7 +114,7 @@ const RegistrationForm = () => {
         value={formData.email}
         onChange={handleChange}
         required
-        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
       />
       <select
         id="type"
@@ -122,7 +122,7 @@ const RegistrationForm = () => {
         value={formData.type}
         onChange={handleChange}
         required
-        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
       >
         <option value="">Type</option>
         <option value="concerts">Concerts</option>
@@ -135,7 +135,7 @@ const RegistrationForm = () => {
         onChange={handleChange}
         required
         disabled={!formData.type || events.length === 0}
-        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:col-span-4"
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline md:col-span-4"
       >
         <option value="">Sélectionnez un événement</option>
         {events.map((event) => (
@@ -152,7 +152,7 @@ const RegistrationForm = () => {
 
 
       {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
-      {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+      {errorMessage && <p className="text-error-red mt-4">{errorMessage}</p>}
     </form>
   );
 };

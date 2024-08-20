@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Text from '../atoms/Text';
 
 // Chemin vers l'image de remplacement dans le dossier public
-const placeholderImage = '/Noimage.jpg'; // Assurez-vous que le chemin correspond à l'emplacement de votre image dans le dossier public
+const placeholderImage = '/Noimage.jpg'; 
 
 const PartnerCard = ({ name, logo, link, description }) => {
   return (
@@ -16,7 +16,7 @@ const PartnerCard = ({ name, logo, link, description }) => {
       />
       <Text type="h3" content={name} className="text-xl font-semibold h3-class" />
       <Text type="p" content={description} className="mt-2 p-class" />
-      <a href={link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 mt-2 block">
+      <a href={link} target="_blank" rel="noopener noreferrer" className="text-pure-blue hover:text-pure-blue mt-2 block">
         Visiter le site
       </a>
     </div>

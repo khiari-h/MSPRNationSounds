@@ -63,9 +63,6 @@ const NewsPage = () => {
           key={index}
           label={index + 1}
           onClick={() => handlePageChange(index + 1)}
-          className={`${
-            currentPage === index + 1 ? 'bg-blue-700' : 'bg-blue-500'
-          } text-white py-2 px-4 rounded mx-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 transition-colors duration-300`}
         />
       ))}
     </div>

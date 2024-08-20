@@ -22,7 +22,7 @@ const Filter = ({ data, filters, filterKeys, handleFilterChange, resetFilters })
 
   return (
     <div className="mb-6">
-      <form className="flex flex-wrap justify-center space-x-4 items-center bg-green-100 p-4 rounded-lg shadow-md">
+      <form className="flex flex-wrap justify-center space-x-4 items-center bg-concert-bg-beige p-4 rounded-lg shadow-md">
         {filterKeys.map((key) => (
           <div key={key} className="w-full sm:w-auto mb-2 sm:mb-0">
             <select
@@ -30,7 +30,7 @@ const Filter = ({ data, filters, filterKeys, handleFilterChange, resetFilters })
               name={key}
               value={filters[key] || ''}
               onChange={(e) => handleFilterChange(key, e.target.value)}
-              className="mt-1 block w-full p-2 border border-green-300 rounded-md text-green-800 bg-white"
+              className="mt-1 block w-full p-2 border border-green-300 rounded-md text-black bg-white"
               style={{ minWidth: '150px' }} 
             >
               <option value="">{displayLabels[key] || key.charAt(0).toUpperCase() + key.slice(1)}</option>

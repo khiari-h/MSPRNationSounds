@@ -13,9 +13,12 @@ const PartnersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // Déclarez l'état pour gérer le nombre d'éléments par page
+  const [partnersPerPage, setPartnersPerPage] = useState(6);
 
-  // Use the custom hook to determine the number of items per page
-  const partnersPerPage = useResponsiveItemsPerPage(6, 3, 6);
+  // Utilisez le hook pour mettre à jour partnersPerPage en fonction de la taille de l'écran
+  useResponsiveItemsPerPage(setPartnersPerPage, 3, 6);
 
   useEffect(() => {
     const fetchPartners = async () => {
@@ -96,7 +99,7 @@ const PartnersPage = () => {
       {loading ? (
         <p>Chargement...</p>
       ) : error ? (
-        <p className="text-red-500">{error}</p>
+        <p className="text-error-red">{error}</p>
       ) : filteredPartners.length === 0 ? (
         <p>Aucun partenaire disponible pour cette catégorie.</p>
       ) : (
