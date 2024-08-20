@@ -71,7 +71,7 @@ jobs:
         echo "DB_PORT=3306" >> ./backend/.env
         echo "DB_DATABASE=test" >> ./backend/.env
         echo "DB_USERNAME=root" >> ./backend/.env
-        echo "DB_PASSWORD=root" >> ./backend/.env
+        echo "DB_PASSWORD="" >> ./backend/.env
       working-directory: ./
 
     - name: Install Composer dependencies
