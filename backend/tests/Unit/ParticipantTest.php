@@ -14,6 +14,9 @@ class ParticipantTest extends TestCase
     /** @test */
     public function it_can_create_a_participant()
     {
+        // Supprimer tous les participants pour éviter les doublons
+        Participant::query()->delete();
+
         $participant = Participant::create([
             'first_name' => 'Jane',
             'last_name' => 'Doe',
@@ -30,6 +33,10 @@ class ParticipantTest extends TestCase
     /** @test */
     public function it_can_belong_to_many_events()
     {
+        // Supprimer tous les participants et événements pour éviter les doublons
+        Participant::query()->delete();
+        Event::query()->delete();
+
         $participant = Participant::create([
             'first_name' => 'Jane',
             'last_name' => 'Doe',
@@ -38,7 +45,7 @@ class ParticipantTest extends TestCase
 
         $event = Event::create([
             'event_name' => 'Workshop',
-            'event_type' => 'Tech',
+            'event_type' => 'concerts', // Assurez-vous d'utiliser une valeur valide
         ]);
 
         $participant->events()->attach($event->id);

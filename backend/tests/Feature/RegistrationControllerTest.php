@@ -17,6 +17,9 @@ class RegistrationControllerTest extends TestCase
         // Crée un événement
         $event = Event::factory()->create();
 
+        // Supprimer tous les participants pour éviter les doublons
+        Participant::query()->delete();
+
         // Données d'inscription
         $data = [
             'first_name' => 'Jane',
@@ -39,44 +42,44 @@ class RegistrationControllerTest extends TestCase
             'email' => 'jane.doe@example.com',
         ]);
 
+        $participant = Participant::where('email', 'jane.doe@example.com')->first();
+
         $this->assertDatabaseHas('event_participant', [
             'event_id' => $event->id,
-            'participant_id' => Participant::first()->id,
+            'participant_id' => $participant->id,
         ]);
     }
 
     /** @test */
-/** @test */
-public function it_prevents_duplicate_registration_to_same_event()
-{
-    // Vider la table des participants pour éviter les duplicata
-    Participant::query()->delete(); // Utilisez delete au lieu de truncate
+    public function it_prevents_duplicate_registration_to_same_event()
+    {
+        // Crée un événement
+        $event = Event::factory()->create();
 
-    // Crée un événement
-    $event = Event::factory()->create();
+        // Supprimer tous les participants pour éviter les doublons
+        Participant::query()->delete();
 
-    // Crée un participant
-    $participant = Participant::factory()->create([
-        'email' => 'jane.doe@example.com',
-    ]);
+        // Crée un participant
+        $participant = Participant::factory()->create([
+            'email' => 'jane.doe@example.com',
+        ]);
 
-    // Associe le participant à l'événement
-    $participant->events()->attach($event->id);
+        // Associe le participant à l'événement
+        $participant->events()->attach($event->id);
 
-    // Tentative d'inscription avec les mêmes données
-    $data = [
-        'first_name' => 'Jane',
-        'last_name' => 'Doe',
-        'email' => 'jane.doe@example.com',
-        'event_id' => $event->id,
-    ];
+        // Tentative d'inscription avec les mêmes données
+        $data = [
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane.doe@example.com',
+            'event_id' => $event->id,
+        ];
 
-    // Fait la requête d'inscription
-    $response = $this->postJson('/api/register', $data);
+        // Fait la requête d'inscription
+        $response = $this->postJson('/api/register', $data);
 
-    // Vérifie que la réponse est un conflit (409)
-    $response->assertStatus(409)
-             ->assertJson(['message' => 'Participant déjà inscrit à cet événement.']);
-}
-
+        // Vérifie que la réponse est un conflit (409)
+        $response->assertStatus(409)
+                 ->assertJson(['message' => 'Participant déjà inscrit à cet événement.']);
+    }
 }

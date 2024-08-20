@@ -15,12 +15,13 @@ class EventTest extends TestCase
     {
         $event = Event::create([
             'event_name' => 'Festival',
-            'event_type' => 'concerts',  
+            'event_type' => 'concerts', 
         ]);
 
         $this->assertDatabaseHas('events', [
             'event_name' => 'Festival',
-            'event_type' => 'concerts',  
+            'event_type' => 'concerts',
         ]);
     }
 }
+
