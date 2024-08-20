@@ -24,6 +24,9 @@ class WordpressControllerTest extends TestCase
     /** @test */
     public function it_can_get_points_of_interest()
     {
+
+        cache()->flush();
+        
         $this->wordpressServiceMock
             ->shouldReceive('getPointsOfInterest')
             ->once()
