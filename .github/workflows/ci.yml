@@ -60,20 +60,20 @@ jobs:
       working-directory: ./backend
 
     - name: Set up .env file
-    run: |
-      echo "APP_NAME=Laravel" > ./backend/.env
-      echo "APP_ENV=testing" >> ./backend/.env
-      echo "APP_KEY=${{ steps.generate_key.outputs.key }}" >> ./backend/.env
-      echo "APP_DEBUG=false" >> ./backend/.env
-      echo "APP_URL=http://localhost" >> ./backend/.env
-      echo "DB_CONNECTION=mysql" >> ./backend/.env
-      echo "DB_HOST=127.0.0.1" >> ./backend/.env
-      echo "DB_PORT=3306" >> ./backend/.env
-      echo "DB_DATABASE=test" >> ./backend/.env
-      echo "DB_USERNAME=root" >> ./backend/.env
-      echo "DB_PASSWORD=" >> ./backend/.env
-    working-directory: ./backend
-  
+      run: |
+        echo "APP_NAME=Laravel" > ./backend/.env
+        echo "APP_ENV=testing" >> ./backend/.env
+        echo "APP_KEY=${{ steps.generate_key.outputs.key }}" >> ./backend/.env
+        echo "APP_DEBUG=false" >> ./backend/.env
+        echo "APP_URL=http://localhost" >> ./backend/.env
+        echo "DB_CONNECTION=mysql" >> ./backend/.env
+        echo "DB_HOST=127.0.0.1" >> ./backend/.env  # Utilisation de 127.0.0.1
+        echo "DB_PORT=3306" >> ./backend/.env
+        echo "DB_DATABASE=test" >> ./backend/.env
+        echo "DB_USERNAME=root" >> ./backend/.env
+        echo "DB_PASSWORD=" >> ./backend/.env
+
+      working-directory: ./
 
     - name: Install Composer dependencies
       run: composer install
