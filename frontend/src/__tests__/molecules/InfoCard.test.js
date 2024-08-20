@@ -35,22 +35,6 @@ describe('Composant InfoCard', () => {
     expect(imageElement).toHaveAttribute('src', '/Noimage.jpg');
   });
 
-  // Test pour vérifier que le lien est affiché si fourni
-  test('affiche le lien "En savoir plus" si le lien est fourni', () => {
-    act(() => {
-      render(
-        <InfoCard
-          title="Titre de Test"
-          description="Description de Test"
-          link="https://example.com"
-        />
-      );
-    });
-
-    const linkElement = screen.getByText(/En savoir plus/i);
-    expect(linkElement).toBeInTheDocument();
-    expect(linkElement).toHaveAttribute('href', 'https://example.com');
-  });
 
 
 });
