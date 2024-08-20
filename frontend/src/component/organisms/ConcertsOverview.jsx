@@ -16,8 +16,6 @@ const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Conce
       try {
         const response = await axios.get('/api/wordpress/concerts-homepage');
         const concertsData = response.data;
-
-        // Fetch photos for each concert
         const concertsWithPhotos = await Promise.all(
           concertsData.map(async (concert) => {
             if (concert.acf.photo) {

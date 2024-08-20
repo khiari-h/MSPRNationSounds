@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../../config/axiosConfig';
 import Button from '../atoms/Button';
 import NewsCard from '../molecules/NewsCard';
+import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay';
 
 const NewsAndUpdates = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [displayCount, setDisplayCount] = useState(3); // Par défaut, on affiche 3 articles
+  const displayCount = useResponsiveDisplay(3);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -23,23 +24,6 @@ const NewsAndUpdates = () => {
     };
 
     fetchNews();
-  }, []);
-
-  useEffect(() => {
-    const updateDisplayCount = () => {
-      if (window.innerWidth < 768) {
-        setDisplayCount(1); // Mobile
-      } else if (window.innerWidth < 1024) {
-        setDisplayCount(2); // Tablette
-      } else {
-        setDisplayCount(3); // Desktop
-      }
-    };
-
-    updateDisplayCount(); // Exécution initiale
-    window.addEventListener('resize', updateDisplayCount);
-
-    return () => window.removeEventListener('resize', updateDisplayCount);
   }, []);
 
   return (

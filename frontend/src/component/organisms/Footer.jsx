@@ -30,14 +30,14 @@ const Footer = () => {
     } catch (error) {
         setStatus('Erreur lors de l\'inscription.');
     } finally {
-        setIsSubmitting(false); // Réactive le bouton après la soumission
+        setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
     if (status) {
       const timer = setTimeout(() => {
-        setStatus(''); // Clear the status after 3 seconds
+        setStatus('');
       }, 3000);
 
       return () => clearTimeout(timer); // Cleanup the timer if the component unmounts
