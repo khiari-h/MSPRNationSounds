@@ -83,3 +83,4 @@ class RegistrationControllerTest extends TestCase
                  ->assertJson(['message' => 'Participant déjà inscrit à cet événement.']);
     }
 }
+
