@@ -36,7 +36,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test
+           # Pas de MYSQL_ROOT_PASSWORD défini pour un mot de passe vide
         ports:
           - 3306:3306
         options: >-
