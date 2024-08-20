@@ -35,8 +35,9 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes" 
           MYSQL_ROOT_PASSWORD: root
-           # Pas de MYSQL_ROOT_PASSWORD défini pour un mot de passe vide
+        
         ports:
           - 3306:3306
         options: >-
