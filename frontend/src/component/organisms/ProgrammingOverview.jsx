@@ -3,13 +3,13 @@ import axios from '../../config/axiosConfig';
 import InfoCard from '../molecules/InfoCard';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
-import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay'; // Import the custom hook
+import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay';
 
 const ProgrammingOverview = () => {
   const [data, setData] = useState({ concert: null, artistMeetings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const displayCount = useResponsiveDisplay(); // Use the custom hook
+  const displayCount = useResponsiveDisplay(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +17,7 @@ const ProgrammingOverview = () => {
         const response = await axios.get('/api/wordpress/programming-homepage');
         const { concert, artists_meetings } = response.data;
 
-        // Fetch concert photo
+        
         if (concert?.acf?.photo) {
           const concertPhotoResponse = await axios.get(`/api/wordpress/media/${concert.acf.photo}`);
           concert.acf.photo_url = concertPhotoResponse.data.source_url;

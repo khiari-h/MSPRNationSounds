@@ -15,7 +15,7 @@ const ConcertsDetailsPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true); 
 
-  // Utiliser le hook pour ajuster le nombre de concerts par page en fonction de la taille de l'écran
+  
   useResponsiveItemsPerPage(setConcertsPerPage);
 
   useEffect(() => {
