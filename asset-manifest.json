@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.6165c69e.css",
-    "main.js": "/static/js/main.186136a0.js",
-    "static/js/762.df05d242.chunk.js": "/static/js/762.df05d242.chunk.js",
-    "static/js/439.e425bd21.chunk.js": "/static/js/439.e425bd21.chunk.js",
-    "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
-    "static/media/concert2.jpg": "/static/media/concert2.0526b187d1e3bc2a47bf.jpg",
-    "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
-    "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
-    "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
-    "static/media/fa-brands-400.woff2": "/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
-    "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
-    "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
-    "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
-    "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
-    "index.html": "/index.html",
-    "main.6165c69e.css.map": "/static/css/main.6165c69e.css.map",
-    "main.186136a0.js.map": "/static/js/main.186136a0.js.map",
-    "762.df05d242.chunk.js.map": "/static/js/762.df05d242.chunk.js.map",
-    "439.e425bd21.chunk.js.map": "/static/js/439.e425bd21.chunk.js.map",
-    "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
+    "main.css": "/MSPRNationSounds/static/css/main.e0f83122.css",
+    "main.js": "/MSPRNationSounds/static/js/main.d24142e4.js",
+    "static/js/762.df05d242.chunk.js": "/MSPRNationSounds/static/js/762.df05d242.chunk.js",
+    "static/js/439.e425bd21.chunk.js": "/MSPRNationSounds/static/js/439.e425bd21.chunk.js",
+    "static/js/453.8ab44547.chunk.js": "/MSPRNationSounds/static/js/453.8ab44547.chunk.js",
+    "static/media/concert2.jpg": "/MSPRNationSounds/static/media/concert2.0526b187d1e3bc2a47bf.jpg",
+    "static/media/fa-solid-900.ttf": "/MSPRNationSounds/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
+    "static/media/fa-brands-400.ttf": "/MSPRNationSounds/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
+    "static/media/fa-solid-900.woff2": "/MSPRNationSounds/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
+    "static/media/fa-brands-400.woff2": "/MSPRNationSounds/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
+    "static/media/fa-regular-400.ttf": "/MSPRNationSounds/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
+    "static/media/fa-regular-400.woff2": "/MSPRNationSounds/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
+    "static/media/fa-v4compatibility.ttf": "/MSPRNationSounds/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
+    "static/media/fa-v4compatibility.woff2": "/MSPRNationSounds/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
+    "index.html": "/MSPRNationSounds/index.html",
+    "main.e0f83122.css.map": "/MSPRNationSounds/static/css/main.e0f83122.css.map",
+    "main.d24142e4.js.map": "/MSPRNationSounds/static/js/main.d24142e4.js.map",
+    "762.df05d242.chunk.js.map": "/MSPRNationSounds/static/js/762.df05d242.chunk.js.map",
+    "439.e425bd21.chunk.js.map": "/MSPRNationSounds/static/js/439.e425bd21.chunk.js.map",
+    "453.8ab44547.chunk.js.map": "/MSPRNationSounds/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6165c69e.css",
-    "static/js/main.186136a0.js"
+    "static/css/main.e0f83122.css",
+    "static/js/main.d24142e4.js"
   ]
 }
