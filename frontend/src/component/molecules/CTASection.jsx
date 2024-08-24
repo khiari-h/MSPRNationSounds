@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
 
+// Composant pour afficher une section d'appel à l'action (CTA)
+
 const CTASection = ({ title, ctas, customClass = '' }) => {
   return (
     <section className={`text-center py-8 bg-concert-bg-beige rounded-lg shadow-none ${customClass}`}>

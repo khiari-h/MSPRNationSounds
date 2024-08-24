@@ -15,7 +15,7 @@ const Header = () => {
         <div className="flex items-center transform transition duration-500 hover:scale-110">
           <a href="/">
             <Image 
-              src="logo.png" 
+            src={`${process.env.PUBLIC_URL}/logo.png`} 
               alt="Festival Logo" 
               className="h-12 w-auto" 
             />

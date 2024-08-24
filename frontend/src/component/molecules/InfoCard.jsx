@@ -11,6 +11,11 @@ const InfoCard = ({ title, description, image, additionalInfo, type }) => {
         src={image || placeholderImage} 
         alt={title} 
         className="w-full h-48 object-cover" 
+        srcSet={`
+          ${image ? `${image}?w=400 400w, ${image}?w=800 800w, ${image}?w=1200 1200w` : ''}
+        `}
+        sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1200px"
+        loading="lazy"
       />
       <div className="p-4 flex flex-col justify-between flex-grow">
         <h3 className="font-concert-title text-black text-xl font-bold mb-2">{title}</h3>
