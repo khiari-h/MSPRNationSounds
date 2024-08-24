@@ -3,6 +3,7 @@ import axios from '../../config/axiosConfig';
 import Button from '../atoms/Button';
 import NewsCard from '../molecules/NewsCard';
 import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay';
+import Text from '../atoms/Text'; // Importer le composant Text
 
 const NewsAndUpdates = () => {
   const [news, setNews] = useState([]);
@@ -28,9 +29,9 @@ const NewsAndUpdates = () => {
 
   return (
     <section className="container mx-auto py-8" aria-labelledby="news-updates-heading">
-      <h1 id="news-updates-heading" className="h1-class mb-8 text-center">Actualités</h1>
-      {loading && <p>Chargement...</p>}
-      {error && <p className="text-error-red">{error}</p>}
+      <Text content="Actualités" type="h1" className="mb-8 text-center" id="news-updates-heading" /> 
+      {loading && <Text content="Chargement..." type="p" />}
+      {error && <Text content={error} type="p" className="text-error-red" />}
       {!loading && !error && (
         <>
           <div className={`grid grid-cols-1 ${displayCount === 2 ? 'md:grid-cols-2' : ''} ${displayCount === 3 ? 'lg:grid-cols-3' : ''} gap-6`}>

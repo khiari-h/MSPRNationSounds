@@ -8,10 +8,10 @@ const RegistrationForm = () => {
     lastName: '',
     email: '',
     type: '',
-    eventId: '', // Changer eventName par eventId
+    eventId: '',
   });
 
-  const [events, setEvents] = useState([]); // Pour stocker les événements récupérés
+  const [events, setEvents] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,6 +21,9 @@ const RegistrationForm = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    // Reset success and error messages on form interaction
+    setSuccessMessage('');
+    setErrorMessage('');
   }, []);
 
   useEffect(() => {
@@ -48,12 +51,13 @@ const RegistrationForm = () => {
   
     fetchEvents();
   }, [formData.type]);
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    // Reset messages before submitting
+    setSuccessMessage('');
+    setErrorMessage('');
     try {
         console.log("Submitting data:", {
             first_name: formData.firstName,
@@ -68,17 +72,25 @@ const RegistrationForm = () => {
             event_id: formData.eventId, 
         });
         setSuccessMessage('Inscription réussie ! Merci de vous être inscrit.');
-        setErrorMessage('');
     } catch (error) {
         console.error('Erreur lors de l\'inscription :', error.response.data);
         setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
-        setSuccessMessage('');
     } finally {
         setIsSubmitting(false);
     }
-};
+  };
 
-  
+  // Effacer le message de succès après 5 secondes
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 5000); // 5000 millisecondes = 5 secondes
+
+      // Nettoyage du timer si le composant est démonté ou si le message change
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   return (
     <form
@@ -145,14 +157,18 @@ const RegistrationForm = () => {
         ))}
       </select>
       <Button
-  label="S'inscrire"
-  type="submit"
-  disabled={isSubmitting}
-/>
-
-
-      {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
-      {errorMessage && <p className="text-error-red mt-4">{errorMessage}</p>}
+        label="S'inscrire"
+        type="submit"
+        disabled={isSubmitting}
+      />
+      <div className="md:col-span-5 flex flex-col items-center mt-4">
+        {successMessage && (
+          <p className="text-green-500 max-w-md text-center">{successMessage}</p>
+        )}
+        {errorMessage && (
+          <p className="text-error-red max-w-md text-center">{errorMessage}</p>
+        )}
+      </div>
     </form>
   );
 };
