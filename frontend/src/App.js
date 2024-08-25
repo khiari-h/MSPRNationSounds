@@ -9,6 +9,7 @@ import NewsPage from './component/pages/NewsPage';
 import ProgrammingPage from './component/pages/ProgrammingPage';
 import NotFoundPage from './component/error/NotFoundPage';
 import ServerErrorPage from './component/error/ServerErrorPage';
+import LegalInformationPage from './component/pages/Legal/LegalInformationsPage';
 import './index.css';
 
 
@@ -21,6 +22,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/legal" element={<LegalInformationPage />} />
           <Route path="/partenaires" element={<PartnersPage />} />
           <Route path="/concerts" element={<ConcertsDetailsPage />} />
           <Route path="/news" element={<NewsPage />} />

@@ -21,7 +21,6 @@ const RegistrationForm = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    // Reset success and error messages on form interaction
     setSuccessMessage('');
     setErrorMessage('');
   }, []);

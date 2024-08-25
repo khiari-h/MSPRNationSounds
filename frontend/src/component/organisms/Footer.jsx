@@ -108,10 +108,10 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-2">Informations légales</h3>
             <ul>
               <li><NavItem label="Mentions légales" href="/legal" className="text-white hover:text-gray-400" /></li>
-              <li><NavItem label="Politique de confidentialité" href="/privacy" className="text-white hover:text-gray-400" /></li>
-              <li><NavItem label="Conditions générales de vente" href="/cgv" className="text-white hover:text-gray-400" /></li>
-              <li><NavItem label="Politique de cookies" href="/cookies" className="text-white hover:text-gray-400" /></li>
-              <li><NavItem label="RGPD" href="/rgpd" className="text-white hover:text-gray-400" /></li>
+              <li><NavItem label="Politique de confidentialité"  className="text-white hover:text-gray-400" /></li>
+              <li><NavItem label="Conditions générales de vente"  className="text-white hover:text-gray-400" /></li>
+              <li><NavItem label="Politique de cookies"  className="text-white hover:text-gray-400" /></li>
+              <li><NavItem label="RGPD" className="text-white hover:text-gray-400" /></li>
             </ul>
           </div>
           <div>
