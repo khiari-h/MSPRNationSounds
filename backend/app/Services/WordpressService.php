@@ -16,7 +16,7 @@ class WordpressService
     public function getPointsOfInterest($perPage = 20)
     {
         $cacheKey = 'wordpress_points_of_interest_' . $perPage;
-        return cache()->remember($cacheKey, now()->addMinutes(1), function () use ($perPage) {
+        return cache()->remember($cacheKey, now()->addMinutes(10), function () use ($perPage) {
             return $this->makeRequest('pointsinterets', ['per_page' => $perPage]);
         });
     }
@@ -25,7 +25,7 @@ class WordpressService
     public function getArtistsMeetings()
     {
         $cacheKey = 'wordpress_artists_meetings';
-        return cache()->remember($cacheKey, now()->addMinutes(1), function () {
+        return cache()->remember($cacheKey, now()->addMinutes(10), function () {
             return $this->makeRequest('artists_meetings');
         });
     }
@@ -34,7 +34,7 @@ class WordpressService
     public function getConcerts()
     {
         $cacheKey = 'wordpress_concerts';
-        return cache()->remember($cacheKey, now()->addMinutes(1), function () {
+        return cache()->remember($cacheKey, now()->addMinutes(10), function () {
             return $this->makeRequest('concerts');
         });
     }
@@ -43,7 +43,7 @@ class WordpressService
     public function getPartnersWithMedia()
     {
         $cacheKey = 'wordpress_partners_with_media';
-        return cache()->remember($cacheKey, now()->addMinutes(1), function () {
+        return cache()->remember($cacheKey, now()->addMinutes(10), function () {
             $partners = $this->makeRequest('partners');
             $mediaIds = array_filter(array_column($partners, 'acf.logo'));
 
@@ -68,7 +68,7 @@ class WordpressService
     public function getMedia($mediaId)
     {
         $cacheKey = "wordpress_media_{$mediaId}";
-        return cache()->remember($cacheKey, now()->addMinutes(1), function () use ($mediaId) {
+        return cache()->remember($cacheKey, now()->addMinutes(10), function () use ($mediaId) {
             return $this->makeRequest("media/{$mediaId}");
         });
     }
