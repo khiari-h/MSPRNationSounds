@@ -63,6 +63,8 @@ const NewsPage = () => {
           key={index}
           label={index + 1}
           onClick={() => handlePageChange(index + 1)}
+          isSelected={currentPage === index + 1}
+          className="mx-1"
         />
       ))}
     </div>
