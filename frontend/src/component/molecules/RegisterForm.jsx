@@ -34,7 +34,7 @@ const RegistrationForm = () => {
             : '/api/wordpress/artist-meeting-names';
           const response = await axiosConfig.get(endpoint);
           if (Array.isArray(response.data)) {
-            console.log(response.data); // Affiche les événements dans la console
+            console.log(response.data); 
             setEvents(response.data);
           } else {
             setEvents([]);
