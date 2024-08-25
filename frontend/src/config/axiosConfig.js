@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000', // URL de base de votre backend Laravel
+  baseURL: 'http://127.0.0.1:8000', // URL du backend Laravel
   timeout: 10000, // Timeout de 10 secondes
   headers: {
     'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const instance = axios.create({
 // Intercepteur de requêtes
 instance.interceptors.request.use(
   config => {
-    // Ajoutez toute logique ou en-tête personnalisé ici
+    
     return config;
   },
   error => {

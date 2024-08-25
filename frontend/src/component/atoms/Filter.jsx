@@ -11,7 +11,7 @@ const Filter = ({ data, filters, filterKeys, handleFilterChange, resetFilters })
     return options;
   }, [data, filterKeys]);
 
- 
+// Filtre pour les concerts et rencontres artistes 
   const displayLabels = {
     group: 'Groupes',
     date: 'Dates',

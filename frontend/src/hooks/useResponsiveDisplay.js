@@ -8,14 +8,14 @@ export const useResponsiveDisplay = (defaultCount = 3) => {
       if (window.innerWidth < 768) {
         setDisplayCount(1); // Mobile
       } else if (window.innerWidth < 1024) {
-        setDisplayCount(2); // Tablet
+        setDisplayCount(2); // Tablette
       } else {
         setDisplayCount(3); // Desktop
       }
     };
 
     window.addEventListener('resize', updateDisplayCount);
-    updateDisplayCount(); // Run once to set initial value
+    updateDisplayCount(); 
 
     return () => window.removeEventListener('resize', updateDisplayCount);
   }, []);

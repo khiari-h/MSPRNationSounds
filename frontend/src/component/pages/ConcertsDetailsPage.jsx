@@ -39,7 +39,7 @@ const ConcertsDetailsPage = () => {
         console.error("Erreur lors de la récupération des concerts!", error);
         setError("Une erreur est survenue lors de la récupération des concerts. Veuillez réessayer plus tard.");
       } finally {
-        setLoading(false); // Arrêter le chargement une fois que la récupération est terminée
+        setLoading(false); 
       }
     };
 

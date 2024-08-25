@@ -18,7 +18,7 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Désactive le bouton pendant la soumission
+    setIsSubmitting(true); 
     try {
         await axios.post('/api/newsletter', {
             first_name: formData.firstName,

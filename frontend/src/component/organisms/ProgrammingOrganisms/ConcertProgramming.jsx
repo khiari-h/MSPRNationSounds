@@ -18,11 +18,13 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
   // Utilisation du hook pour ajuster le nombre de concerts par page
   useResponsiveItemsPerPage(setConcertsPerPage);
 
+    // Récupère et formate les concerts au chargement du composant
   useEffect(() => {
     const fetchConcerts = async () => {
       try {
         const concertsData = await fetchWithCache('concerts', apiEndpoint, 3600);
 
+         // Formate les données des concerts
         const formattedConcerts = await Promise.all(
           concertsData.map(async (concert) => {
             if (concert.acf.photo) {
@@ -51,6 +53,7 @@ const ConcertsProgramming = ({ apiEndpoint = '/api/wordpress/concerts' }) => {
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
 
+   // Filtre les concerts en fonction des critères sélectionnés
   const filteredConcerts = concerts.filter((concert) => {
     return (
       (filters.date === '' || concert.acf.date === filters.date) &&

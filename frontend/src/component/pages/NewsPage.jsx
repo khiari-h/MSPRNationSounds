@@ -9,10 +9,10 @@ const NewsPage = () => {
   const [news, setNews] = useState([]);
   const [filter, setFilter] = useState('Tous');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6); // Initial state
+  const [itemsPerPage, setItemsPerPage] = useState(6);
   const [error, setError] = useState(null);
 
-  // Utiliser le hook pour ajuster le nombre d'éléments par page en fonction de la taille de l'écran
+  // Hook pour ajuster le nombre d'éléments par page en fonction de la taille de l'écran
   useResponsiveItemsPerPage(setItemsPerPage);
 
   useEffect(() => {

@@ -20,7 +20,7 @@ const HomePageTemplate = ({ heroSection, newsAndUpdates, concertsOverview, progr
 <section aria-labelledby="aperçu-programmation">
   {programmingOverview}
 </section>
-<section aria-labelledby="cta-avant-carte">
+<section aria-labelledby="reservation-billets">
   {ctaBeforeMap}
 </section>
 <section aria-labelledby="inscriptions">
@@ -33,7 +33,7 @@ const HomePageTemplate = ({ heroSection, newsAndUpdates, concertsOverview, progr
 <section aria-labelledby="carte">
   {map}
 </section>
-<section aria-labelledby="cta-apres-carte">
+<section aria-labelledby="partenaires">
   {ctaAfterMap}
 </section>
 

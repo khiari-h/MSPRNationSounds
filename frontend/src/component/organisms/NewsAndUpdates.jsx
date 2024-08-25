@@ -3,7 +3,7 @@ import axios from '../../config/axiosConfig';
 import Button from '../atoms/Button';
 import NewsCard from '../molecules/NewsCard';
 import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay';
-import Text from '../atoms/Text'; // Importer le composant Text
+import Text from '../atoms/Text'; 
 
 const NewsAndUpdates = () => {
   const [news, setNews] = useState([]);

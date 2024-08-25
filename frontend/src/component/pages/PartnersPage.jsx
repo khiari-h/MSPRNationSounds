@@ -14,10 +14,10 @@ const PartnersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // Déclarez l'état pour gérer le nombre d'éléments par page
+  // Etat pour gérer le nombre d'éléments par page
   const [partnersPerPage, setPartnersPerPage] = useState(6);
 
-  // Utilisez le hook pour mettre à jour partnersPerPage en fonction de la taille de l'écran
+  // Hook pour mettre à jour partnersPerPage en fonction de la taille de l'écran
   useResponsiveItemsPerPage(setPartnersPerPage, 3, 6);
 
   useEffect(() => {

@@ -17,11 +17,13 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
   // Utilisation du hook pour ajuster le nombre de meetings par page
   useResponsiveItemsPerPage(setMeetingsPerPage);
 
+  // Récupère les données des rencontres artistes au chargement du composant
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
         const meetingsData = await fetchWithCache('artistMeetings', apiEndpoint, 3600);
 
+         // Formate les données 
         const formattedMeetings = await Promise.all(
           meetingsData.map(async (meeting) => {
             if (meeting.acf.photo) {
@@ -50,6 +52,7 @@ const ArtistMeeting = ({ apiEndpoint = '/api/wordpress/artists_meetings' }) => {
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
 
+  // Filtre les meetings selon les critères sélectionnés
   const filteredMeetings = artistMeetings.filter((meeting) => {
     return (
       (filters.date === '' || meeting.acf.date === filters.date) &&

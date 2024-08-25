@@ -10,6 +10,7 @@ const PracticalInfo = () => {
     setPracticalInfo(practicalInfoData.sections);
   }, []);
 
+  // Les informations pratiques sont récupérés depuis le fichier json 
   return (
     <section className="py-12" aria-labelledby="practical-info-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -3,15 +3,16 @@ import axios from '../../config/axiosConfig';
 import InfoCard from '../molecules/InfoCard';
 import Text from '../atoms/Text';
 import Button from '../atoms/Button';
-import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay'; // Import the custom hook
+import { useResponsiveDisplay } from '../../hooks/useResponsiveDisplay'; 
 
 const ConcertsOverview = ({ showMoreButton = true, heading = "Planning des Concerts" }) => {
   const [concerts, setConcerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const displayCount = useResponsiveDisplay(); // Use the custom hook
+  const displayCount = useResponsiveDisplay(); 
 
   useEffect(() => {
+    // Fonction pour récupérer les concerts depuis l'API
     const fetchConcerts = async () => {
       try {
         const response = await axios.get('/api/wordpress/concerts-homepage');

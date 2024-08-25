@@ -54,7 +54,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Reset messages before submitting
+   
     setSuccessMessage('');
     setErrorMessage('');
     try {
@@ -64,7 +64,7 @@ const RegistrationForm = () => {
             email: formData.email,
             event_id: formData.eventId
         });
-        const response = await axiosConfig.post('/api/register', {
+        await axiosConfig.post('/api/register', {
             first_name: formData.firstName,
             last_name: formData.lastName,
             email: formData.email,
@@ -77,7 +77,8 @@ const RegistrationForm = () => {
     } finally {
         setIsSubmitting(false);
     }
-  };
+};
+
 
   // Effacer le message de succès après 5 secondes
   useEffect(() => {
