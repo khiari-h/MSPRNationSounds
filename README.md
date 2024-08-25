@@ -70,6 +70,26 @@ Configurer les variables d'environnement
 
 Créez un fichier .env dans les répertoires frontend et backend à partir des exemples .env.example et configurez les variables nécessaires (base de données, API, etc.).
 
+initialisation de la Base de Données
+
+Pour créer la table events et insérer les données initiales, suivez les étapes ci-dessous :
+
+Créer la table events : utiliser le script seed_events dans MSPRNationSounds\docs\back-end\database\db_scripts
+
+Assurez-vous que vous avez configuré votre base de données dans le fichier .env du répertoire backend. Ensuite, utilisez les commandes de migration Laravel pour créer les tables :
+
+bash
+Copier le code
+php artisan migrate
+Insérer les données initiales dans la table events :
+
+Exécutez le script SQL pour insérer des données initiales :
+
+bash
+Copier le code
+mysql -u <username> -p<password> <database_name> < db_scripts/seed_events.sql
+Remplacez <username>, <password>, et <database_name> par les informations appropriées de votre configuration MySQL.
+
 Démarrage
 Front-end
 

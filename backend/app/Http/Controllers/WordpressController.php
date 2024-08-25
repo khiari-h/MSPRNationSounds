@@ -15,6 +15,9 @@ class WordpressController extends Controller
         $this->wordpressService = $wordpressService;
     }
 
+
+// Récupère les points d'intérêts depuis le service wordpress
+    
     public function getPointsOfInterest(): JsonResponse
     {
         try {
@@ -29,6 +32,8 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer les points d\'intérêt'], 500);
         }
     }
+
+// Récupère les rencontres artistes depuis le service wordpress
 
     public function getArtistsMeetings(): JsonResponse
     {
@@ -45,6 +50,8 @@ class WordpressController extends Controller
         }
     }
 
+// Récupère les concerts depuis le service wordpress
+
     public function getConcerts(): JsonResponse
     {
         try {
@@ -59,6 +66,8 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer les concerts'], 500);
         }
     }
+
+// Récupère les partenaires depuis le service wordpress
 
     public function getPartners(): JsonResponse
     {
@@ -75,6 +84,8 @@ class WordpressController extends Controller
         }
     }
 
+    // Récupère les médias depuis le service wordpress
+
     public function getMedia($mediaId): JsonResponse
     {
         try {
@@ -89,6 +100,8 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer le média'], 500);
         }
     }
+
+// Fonction pour la récupération des informations de la partie programation sur la homepage
 
     public function getProgrammingHomepage(): JsonResponse
     {
@@ -105,6 +118,9 @@ class WordpressController extends Controller
         }
     }
 
+
+    // Fonction pour la récupération des informations de la partie concerts sur la homepage
+
     public function getConcertsHomepage(): JsonResponse
     {
         try {
@@ -119,6 +135,8 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer les concerts pour la page d\'accueil'], 500);
         }
     }
+
+// Récupération noms des concerts
 
     public function getConcertNames(): JsonResponse
     {
@@ -137,6 +155,8 @@ class WordpressController extends Controller
             return response()->json(['error' => 'Impossible de récupérer les noms des concerts'], 500);
         }
     }
+
+// Récupération noms des artistes
 
     public function getArtistMeetingNames(): JsonResponse
     {

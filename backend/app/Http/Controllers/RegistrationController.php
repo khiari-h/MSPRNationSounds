@@ -7,7 +7,7 @@ use App\Models\Event;
 
 class RegistrationController extends Controller
 {
-    // 1. Méthode pour inscrire un participant à un événement
+    // Méthode pour inscrire un participant à un événement
     public function registerParticipant(Request $request)
     {
         // Valider les autres champs
